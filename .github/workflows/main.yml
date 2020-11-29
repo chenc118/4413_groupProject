@@ -11,17 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        java-version: [11.x]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Set up Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
     - name: mvn build
       uses: qcastel/github-actions-maven/actions/maven@master
       with:
+        java-version: 11
         maven-args: "clean install"
+      env: 
+        JAVA_HOME: "/usr/java/openjdk-11"
     - name: serverless deploy
       uses: serverless/github-action@master
       with:
