@@ -18,6 +18,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: GitHub Action for Maven
+      uses: LucaFeger/action-maven-cli@1.1.0
+      with:
+        args: "clean install"
     - name: serverless deploy
       uses: serverless/github-action@master
       with:
