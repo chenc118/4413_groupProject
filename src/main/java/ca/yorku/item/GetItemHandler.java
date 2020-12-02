@@ -9,8 +9,11 @@ import com.serverless.dal.DynamoDBAdapter;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
@@ -27,6 +30,7 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
                     .build();
         }
         else{
+
             return ApiGatewayResponse.builder()
                     .setStatusCode(404)
                     .setObjectBody("Item with id: '" + itemId + "' not found.")
