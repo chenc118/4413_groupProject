@@ -30,7 +30,7 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
                 newItem.setQuantity(body.get("quantity").asLong());
             }
             newItem.save();
-            return :ApiGatewayResponse.builder()
+            return ApiGatewayResponse.builder()
                     .setStatusCode(200)
                     .setObjectBody(newItem)
                     .build();
