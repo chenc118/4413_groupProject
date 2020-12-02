@@ -85,6 +85,33 @@ functions:
           path: /products/{id}
           method: delete
 
+  getItem:
+    handler: ca.yorku.item.GetItemHandler
+    events:
+      - http:
+          path: /item/{itemId}
+          method: get
+
+  putItem:
+    handler: ca.yorku.item.PutItemHandler
+    events:
+      - http:
+          path: /item/{itemId}
+          method: put
+
+  deleteItem:
+    handler: ca.yorku.item.DeleteItemHandler
+    events:
+      - http:
+          path: /item/{itemId}
+          method: delete
+  newItem:
+    handler: ca.yorku.item.NewItemHandler
+    events:
+      - http:
+          path: /item/new
+          method: post
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
