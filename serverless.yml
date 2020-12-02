@@ -138,6 +138,32 @@ functions:
           path: /order/new
           method: post
 
+  getReview:
+    handler: ca.yorku.review.GetReviewHandler
+    events:
+      - http:
+          path: /review/{reviewId}
+          method: get
+
+  updateReview:
+    handler: ca.yorku.review.UpdateReviewHandler
+    events:
+      - http:
+          path: /review/{reviewId}
+          method: put
+  deleteReview:
+    handler: ca.yorku.review.DeleteReviewHandler
+    events:
+      - http:
+          path: /review/{reviewId}
+          method: delete
+  addReview:
+    handler: ca.yorku.review.AddReviewHandler
+    events:
+      - http:
+          path: /review/new
+          method: post
+
 
 
 #    The following are a few example events you can configure
