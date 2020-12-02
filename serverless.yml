@@ -112,6 +112,33 @@ functions:
           path: /item/new
           method: post
 
+  getOrder:
+    handler: ca.yorku.order.GetOrderHandler
+    events:
+      - http:
+          path: /order/{orderId}
+          method: get
+
+  updateOrder:
+    handler: ca.yorku.order.UpdateOrderHandler
+    events:
+      - http:
+          path: /order/{orderId}
+          method: put
+  deleteOrder:
+    handler: ca.yorku.order.DeleteOrderHandler
+    events:
+      - http:
+          path: /order/{orderId}
+          method: delete
+  addOrder:
+    handler: ca.yorku.order.AddOrderHandler
+    events:
+      - http:
+          path: /order/new
+          method: post
+
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
