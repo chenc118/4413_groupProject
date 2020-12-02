@@ -231,7 +231,7 @@ resources:
         TableName: item_table
         AttributeDefinitions:
           - AttributeName: id
-            AttributeType: N
+            AttributeType: S
           - AttributeName: name
             AttributeType: S
         KeySchema:
