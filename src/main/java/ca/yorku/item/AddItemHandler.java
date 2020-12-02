@@ -25,7 +25,7 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
 
             Item newItem = new Item();
             if(body.has("id")) {
-                newItem.setId(body.get("id").asInt());
+                newItem.setId(body.get("id").asText());
             }
             newItem.setName(body.get("name").asText());
             if(body.has("price")){
