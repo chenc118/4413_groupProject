@@ -242,6 +242,20 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+    categoryTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: categories_table
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
 
 # you can add CloudFormation resource templates here
 #resources:
