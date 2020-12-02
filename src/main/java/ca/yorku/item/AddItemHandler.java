@@ -6,7 +6,7 @@ import com.serverless.ApiGatewayResponse;
 
 import java.util.Map;
 
-public class NewItemHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {

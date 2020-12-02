@@ -6,7 +6,7 @@ import com.serverless.ApiGatewayResponse;
 
 import java.util.Map;
 
-public class PutItemHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class UpdateItemHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         ApiGatewayResponse res =  ApiGatewayResponse.builder()

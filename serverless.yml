@@ -92,8 +92,8 @@ functions:
           path: /item/{itemId}
           method: get
 
-  putItem:
-    handler: ca.yorku.item.PutItemHandler
+  updateItem:
+    handler: ca.yorku.item.UpdateItemHandler
     events:
       - http:
           path: /item/{itemId}
@@ -105,8 +105,8 @@ functions:
       - http:
           path: /item/{itemId}
           method: delete
-  newItem:
-    handler: ca.yorku.item.NewItemHandler
+  addItem:
+    handler: ca.yorku.item.AddItemHandler
     events:
       - http:
           path: /item/new
@@ -137,6 +137,7 @@ functions:
       - http:
           path: /order/new
           method: post
+
 
 
 #    The following are a few example events you can configure
