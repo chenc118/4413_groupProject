@@ -50,10 +50,10 @@ public class Category {
     }
     
     public boolean delete(String id){
-        Review review;
-        review = get(id);
-        if(review != null){
-            mapper.delete(review);
+        Category category;
+        category = get(id);
+        if(category != null){
+            mapper.delete(category);
             return true;
         }
         return false;
