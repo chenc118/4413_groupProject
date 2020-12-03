@@ -10,8 +10,12 @@ import com.serverless.ApiGatewayResponse;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class UpdateItemHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+
+    private Logger logger = Logger.getLogger(this.getClass().getName());
+
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
@@ -28,6 +32,9 @@ public class UpdateItemHandler implements RequestHandler<Map<String, Object>, Ap
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
             if(body.has("name")) {
                 item.setName(body.get("name").asText());
+            }
+            if(body.has("category")){
+                item.setCategory(body.get("category").asInt());
             }
             if(body.has("price")){
                 item.setPrice(body.get("price").asDouble());
@@ -46,7 +53,7 @@ public class UpdateItemHandler implements RequestHandler<Map<String, Object>, Ap
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);
-            //logger.severe("Error in saving product: "+ex+sw.toString());
+            logger.severe("Error in saving product: "+ex+sw.toString());
 
             return ApiGatewayResponse.builder()
                     .setStatusCode(400)

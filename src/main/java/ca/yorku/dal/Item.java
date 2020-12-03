@@ -20,6 +20,7 @@ public class Item {
     private double price;
     private String name;
     private long quantity;
+    @DynamoDBTypeConvertedJson
     private Category category;
 
 
