@@ -4,7 +4,6 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.serverless.dal.DynamoDBAdapter;
-import com.serverless.dal.Product;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -20,8 +19,8 @@ public class Item {
     private double price;
     private String name;
     private long quantity;
-    @DynamoDBTypeConvertedJson
-    private Category category;
+
+    private String category;
 
 
 
@@ -108,11 +107,11 @@ public class Item {
     }
 
     @DynamoDBAttribute(attributeName = "category")
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 }
