@@ -228,7 +228,7 @@ resources:
     itemsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: item_table2
+        TableName: item_table3
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
@@ -239,6 +239,14 @@ resources:
             KeyType: HASH
           - AttributeName: name
             KeyType: RANGE
+        LocalSecondaryIndexes:
+          IndexName: CategoryIndex
+          KeySchema:
+            - AttributeName: Category
+              AttributeType: HASH
+          Projection:
+            ProjectionType: ALL
+
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

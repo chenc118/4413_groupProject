@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "item_table2")
+@DynamoDBTable(tableName = "item_table3")
 public class Item {
 
     private static DynamoDBAdapter db_adapter;
@@ -127,7 +127,7 @@ public class Item {
         return false;
     }
 
-    @DynamoDBAttribute(attributeName = "category")
+    @DynamoDBIndexHashKey(attributeName="category",globalSecondaryIndexName = "CategoryIndex")
     public String getCategory() {
         return category;
     }
