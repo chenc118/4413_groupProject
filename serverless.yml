@@ -22,7 +22,7 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: java8
+  runtime: java11
   iamRoleStatements:
    - Effect: "Allow"
      Action:
