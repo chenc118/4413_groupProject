@@ -234,6 +234,8 @@ resources:
             AttributeType: S
           - AttributeName: name
             AttributeType: S
+          - AttributeName: category
+            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
@@ -242,11 +244,11 @@ resources:
         LocalSecondaryIndexes:
           - IndexName: CategoryIndex
             KeySchema:
-              - AttributeName: category
+              - AttributeName: id
                 KeyType: HASH
+              - AttributeName: category
+                KeyType: RANGE
             Projection:
-              NonKeyAttributes:
-                -
               ProjectionType: ALL
 
         ProvisionedThroughput:
