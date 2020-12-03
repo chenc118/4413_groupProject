@@ -18,7 +18,7 @@ public class AddReviewHandler implements RequestHandler<Map<String, Object>, Api
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	@Override
-    public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
+	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 		
 		try{
 			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
@@ -26,26 +26,26 @@ public class AddReviewHandler implements RequestHandler<Map<String, Object>, Api
 			
 			if(body.has("name")) {
 				newCategory.setName(body.get("name").asText());
-            }
-            if(body.has("Id")){
+			}
+			if(body.has("Id")){
 				newCategory.setId(body.get("Id").asText());
-            }
+			}
 			
 			newCategory.save();
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(201)
-                    .setObjectBody(newCategory)
-                    .build();
+			return ApiGatewayResponse.builder()
+				.setStatusCode(201)
+				.setObjectBody(newCategory)
+				.build();
 		} catch(Exception ex){
-		    StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            ex.printStackTrace(pw);
-            logger.severe("Error in adding category: "+ex+sw.toString());
-
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(400)
-                    .setObjectBody("Invalid data")
-                    .build();
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			ex.printStackTrace(pw);
+			logger.severe("Error in adding category: "+ex+sw.toString());
+			
+			return ApiGatewayResponse.builder()
+				.setStatusCode(400)
+				.setObjectBody("Invalid data")
+				.build();
 		}
 		
 	}
