@@ -5,6 +5,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.serverless.dal.DynamoDBAdapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
@@ -95,8 +96,8 @@ public class Item {
         return item;
     }
 
-    public void getByCategory(String categoryId){
-        Item item = null;
+    public List<Item> getByCategory(String categoryId){
+        List<Item> itemList = new ArrayList<Item>();
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
         av.put(":v1", new AttributeValue().withS("testCategory"));
@@ -110,11 +111,12 @@ public class Item {
         PaginatedQueryList<Item> result = this.mapper.query(Item.class, queryExp);
         if (result.size() > 0) {
             for(Item i: result) {
-                logger.info("Products - get(): product - " + i.getId());
+                itemList.add(i);
             }
         } else {
             logger.info("Products - get(): product - Not Found.");
         }
+        return itemList;
     }
 
     public void save(){

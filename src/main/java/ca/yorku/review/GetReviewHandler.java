@@ -15,7 +15,7 @@ public class GetReviewHandler implements RequestHandler<Map<String, Object>, Api
         String reviewId = pathParameters.get("reviewId");
 
         Review review = new Review().get(reviewId);
-
+        //TODO checks to make sure that the category is valid/other resonse codes
         if(review != null){
             return ApiGatewayResponse.builder()
                     .setStatusCode(200)
