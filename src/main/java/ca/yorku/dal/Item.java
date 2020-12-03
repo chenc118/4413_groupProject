@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.serverless.dal.DynamoDBAdapter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 
 @DynamoDBTable(tableName = "item_table2")
@@ -19,8 +20,9 @@ public class Item {
     private double price;
     private String name;
     private long quantity;
-
     private String category;
+    private String soldBy;
+    private List<String> reviews;
 
 
 
@@ -93,6 +95,25 @@ public class Item {
         return item;
     }
 
+    public void getByCategory(String categoryId){
+        Item item = null;
+
+        HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
+        av.put(":v1", new AttributeValue().withS("testCategory"));
+
+        DynamoDBQueryExpression<Item> queryExp = new DynamoDBQueryExpression<Item>()
+                .withKeyConditionExpression("category = :v1")
+                .withExpressionAttributeValues(av);
+
+        PaginatedQueryList<Item> result = this.mapper.query(Item.class, queryExp);
+        if (result.size() > 0) {
+            item = result.get(0);
+            logger.info("Products - get(): product - " + item.getId());
+        } else {
+            logger.info("Products - get(): product - Not Found.");
+        }
+    }
+
     public void save(){
         mapper.save(this);
     }
@@ -113,5 +134,23 @@ public class Item {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @DynamoDBAttribute(attributeName = "soldBy")
+    public String getSoldBy() {
+        return soldBy;
+    }
+
+    public void setSoldBy(String soldBy) {
+        this.soldBy = soldBy;
+    }
+
+    @DynamoDBAttribute(attributeName = "reviews")
+    public List<String> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<String> reviews) {
+        this.reviews = reviews;
     }
 }
