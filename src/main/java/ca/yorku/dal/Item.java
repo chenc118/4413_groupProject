@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "item_table3")
+@DynamoDBTable(tableName = "item_table4")
 public class Item {
 
     private static DynamoDBAdapter db_adapter;
