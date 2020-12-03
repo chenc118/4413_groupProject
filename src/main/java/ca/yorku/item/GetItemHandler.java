@@ -18,7 +18,7 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
-        String itemId = pathParameters.get("id");
+        String itemId = pathParameters.get("itemId");
 
         Item item = new Item().get(itemId);
 
