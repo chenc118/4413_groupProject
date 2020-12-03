@@ -122,6 +122,7 @@ public class Item {
         item = get(id);
         if(item != null){
             mapper.delete(item);
+            return true;
         }
         return false;
     }

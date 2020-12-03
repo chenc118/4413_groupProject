@@ -5,24 +5,24 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.serverless.dal.DynamoDBAdapter;
 
-import java.util.Date;
 import java.util.HashMap;
 
-@DynamoDBTable(tableName = "orders_table")
-public class Order {
+@DynamoDBTable(tableName = "reviews_table")
+public class Review {
 
     private static DynamoDBAdapter db_adapter;
     private final AmazonDynamoDB client;
     private final DynamoDBMapper mapper;
 
-
     private String id;
-    private Date placedDate;
-    @DynamoDBTypeConvertedEnum
-    private Status status;
-    private String comment;
+    private String itemId;
+    private String orderId;
+    private int rating;
+    private String title;
+    private String content;
 
-    public Order(){
+
+    public Review(){
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
                 .build();
         // get the db adapter
@@ -38,51 +38,69 @@ public class Order {
         return id;
     }
 
-    @DynamoDBAttribute(attributeName = "placedDate")
-    public Date getPlacedDate() {
-        return placedDate;
+    @DynamoDBAttribute(attributeName = "itemId")
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setPlacedDate(Date placedDate) {
-        this.placedDate = placedDate;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
-    @DynamoDBAttribute(attributeName = "status")
-    public Status getStatus() {
-        return status;
+    @DynamoDBAttribute(attributeName = "orderId")
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
-    @DynamoDBAttribute(attributeName = "comment")
-    public String getComment() {
-        return comment;
+    @DynamoDBAttribute(attributeName = "rating")
+    public int getRating() {
+        return rating;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
-    public Order get(String id){
-        Order order = null;
+    @DynamoDBAttribute(attributeName = "title")
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @DynamoDBAttribute(attributeName = "content")
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Review get(String id){
+        Review review = null;
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
         av.put(":v1", new AttributeValue().withS(id));
 
-        DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
+        DynamoDBQueryExpression<Review> queryExp = new DynamoDBQueryExpression<Review>()
                 .withKeyConditionExpression("id = :v1")
                 .withExpressionAttributeValues(av);
 
-        PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
+        PaginatedQueryList<Review> result = this.mapper.query(Review.class, queryExp);
         if (result.size() > 0) {
-            order = result.get(0);
+            review = result.get(0);
             //logger.info("Products - get(): product - " + product.toString());
         } else {
             //logger.info("Products - get(): product - Not Found.");
         }
-        return order;
+        return review;
     }
 
     public void save(){
@@ -90,18 +108,12 @@ public class Order {
     }
 
     public boolean delete(String id){
-        Order order;
-        order = get(id);
-        if(order != null){
-            mapper.delete(order);
+        Review review;
+        review = get(id);
+        if(review != null){
+            mapper.delete(review);
             return true;
         }
         return false;
-    }
-
-    public enum Status{
-        Placed,
-        Shipped,
-        Delivered;
     }
 }
