@@ -9,6 +9,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.serverless.dal.DynamoDBAdapter;
 
+import java.util.HashMap;
+
 @DynamoDBTable(tableName = "categories_table2")
 public class Category {
 
