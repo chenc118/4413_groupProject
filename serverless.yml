@@ -242,9 +242,11 @@ resources:
         LocalSecondaryIndexes:
           - IndexName: CategoryIndex
             KeySchema:
-              - AttributeName: Category
+              - AttributeName: category
                 KeyType: HASH
             Projection:
+              NonKeyAttributes:
+                -
               ProjectionType: ALL
 
         ProvisionedThroughput:
