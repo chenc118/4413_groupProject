@@ -38,6 +38,10 @@ public class Review {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @DynamoDBAttribute(attributeName = "itemId")
     public String getItemId() {
         return itemId;
@@ -116,4 +120,5 @@ public class Review {
         }
         return false;
     }
+
 }

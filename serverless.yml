@@ -112,6 +112,7 @@ functions:
           path: /item/new
           method: post
 
+
   getOrder:
     handler: ca.yorku.order.GetOrderHandler
     events:
@@ -164,7 +165,8 @@ functions:
           path: /review/new
           method: post
 
-
+  searchItemsByCategory:
+    handler: ca.yorku.search.
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
