@@ -13,6 +13,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ApiGatewayResponse {
 
+	private static final Map<String, String> CORS_HEADERS = Map.of(
+		"Access-Control-Allow-Credentials", "true",
+		"Access-Control-Allow-Origin", "*"  // TODO: Finalize domain and remove wildcard allow
+	);
+
 	private final int statusCode;
 	private final String body;
 	private final Map<String, String> headers;
@@ -124,7 +129,9 @@ public class ApiGatewayResponse {
 			} else if (binaryBody != null) {
 				body = new String(Base64.getEncoder().encode(binaryBody), StandardCharsets.UTF_8);
 			}
-			return new ApiGatewayResponse(statusCode, body, headers, base64Encoded);
+			Map<String, String> headersWithCors = new HashMap(CORS_HEADERS);
+			headersWithCors.putAll(headers);
+			return new ApiGatewayResponse(statusCode, body, headersWithCors, base64Encoded);
 		}
 	}
 }
