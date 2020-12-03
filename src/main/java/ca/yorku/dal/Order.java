@@ -38,6 +38,10 @@ public class Order {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @DynamoDBAttribute(attributeName = "placedDate")
     public Date getPlacedDate() {
         return placedDate;
