@@ -106,6 +106,7 @@ public class Item {
         return false;
     }
 
+    @DynamoDBAttribute(attributeName = "category")
     public Category getCategory() {
         return category;
     }
