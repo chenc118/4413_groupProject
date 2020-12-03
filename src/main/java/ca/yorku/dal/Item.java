@@ -44,10 +44,6 @@ public class Item {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     @DynamoDBAttribute(attributeName = "price")
     public double getPrice() {
         return price;
