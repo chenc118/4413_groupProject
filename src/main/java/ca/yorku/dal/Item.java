@@ -107,8 +107,9 @@ public class Item {
 
         PaginatedQueryList<Item> result = this.mapper.query(Item.class, queryExp);
         if (result.size() > 0) {
-            item = result.get(0);
-            logger.info("Products - get(): product - " + item.getId());
+            for(Item i: result) {
+                logger.info("Products - get(): product - " + i.getId());
+            }
         } else {
             logger.info("Products - get(): product - Not Found.");
         }
