@@ -103,7 +103,7 @@ public class Item {
 
         DynamoDBQueryExpression<Item> queryExp = new DynamoDBQueryExpression<Item>()
                 .withIndexName("CategoryIndex")
-                .withConsistentRead(true)
+                .withConsistentRead(false)
                 .withKeyConditionExpression("category = :v1")
                 .withExpressionAttributeValues(av);
 
