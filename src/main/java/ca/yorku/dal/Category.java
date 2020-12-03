@@ -7,6 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.serverless.dal.DynamoDBAdapter;
 
 @DynamoDBTable(tableName = "categories_table")
 public class Category {
