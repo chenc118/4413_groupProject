@@ -9,7 +9,7 @@ import com.serverless.dal.Product;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "item_table")
+@DynamoDBTable(tableName = "item_table2")
 public class Item {
 
     private static DynamoDBAdapter db_adapter;
