@@ -48,4 +48,14 @@ public class Category {
     public void save(){
         mapper.save(this);
     }
+    
+    public boolean delete(String id){
+        Review review;
+        review = get(id);
+        if(review != null){
+            mapper.delete(review);
+            return true;
+        }
+        return false;
+    }
 }
