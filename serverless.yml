@@ -271,7 +271,7 @@ resources:
     orderTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: order_table
+        TableName: orders_table
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
