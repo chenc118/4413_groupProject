@@ -13,7 +13,7 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class AddReviewHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse>  {
+public class AddCategoryHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse>  {
 	
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	
