@@ -21,7 +21,7 @@ jobs:
     - name: GitHub Action for Maven
       uses: LucaFeger/action-maven-cli@1.1.0
       with:
-        args: "clean install"
+        args: "-B clean install"
     - name: serverless deploy
       uses: serverless/github-action@master
       with:
