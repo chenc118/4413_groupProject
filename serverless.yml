@@ -228,7 +228,7 @@ resources:
     itemsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: item_table
+        TableName: item_table2
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
