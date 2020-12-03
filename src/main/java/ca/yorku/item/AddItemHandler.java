@@ -35,7 +35,7 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             }
             newItem.save();
             return ApiGatewayResponse.builder()
-                    .setStatusCode(200)
+                    .setStatusCode(201)
                     .setObjectBody(newItem)
                     .build();
         }catch(Exception ex){

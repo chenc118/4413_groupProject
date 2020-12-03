@@ -18,7 +18,7 @@ public class DeleteItemHandler implements RequestHandler<Map<String, Object>, Ap
         if(deleted) {
             return ApiGatewayResponse.builder()
                     .setStatusCode(200)
-                    .setObjectBody("DeleteItem")
+                    .setRawBody("OK")
                     .build();
         }
         else{

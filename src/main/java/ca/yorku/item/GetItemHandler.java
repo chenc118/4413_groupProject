@@ -34,7 +34,6 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             return ApiGatewayResponse.builder()
                     .setStatusCode(404)
                     .setObjectBody("Item with id: '" + itemId + "' not found.")
-                    .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
                     .build();
         }
     }

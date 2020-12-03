@@ -60,8 +60,5 @@ public class UpdateItemHandler implements RequestHandler<Map<String, Object>, Ap
                     .setObjectBody("Invalid Input")
                     .build();
         }
-
-
-
     }
 }
