@@ -18,6 +18,7 @@ public class Order {
 
     private String id;
     private Date placedDate;
+    @DynamoDBTypeConvertedEnum
     private Status status;
     private String comment;
 
