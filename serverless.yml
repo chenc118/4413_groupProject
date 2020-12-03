@@ -97,7 +97,7 @@ functions:
     events:
       - http:
           path: /item/{itemId}
-          method: put
+          method: patch
 
   deleteItem:
     handler: ca.yorku.item.DeleteItemHandler
@@ -124,7 +124,7 @@ functions:
     events:
       - http:
           path: /order/{orderId}
-          method: put
+          method: patch
   deleteOrder:
     handler: ca.yorku.order.DeleteOrderHandler
     events:
@@ -150,7 +150,7 @@ functions:
     events:
       - http:
           path: /review/{reviewId}
-          method: put
+          method: patch
   deleteReview:
     handler: ca.yorku.review.DeleteReviewHandler
     events:
@@ -240,12 +240,12 @@ resources:
           - AttributeName: name
             KeyType: RANGE
         LocalSecondaryIndexes:
-          IndexName: CategoryIndex
-          KeySchema:
-            - AttributeName: Category
-              AttributeType: HASH
-          Projection:
-            ProjectionType: ALL
+          - IndexName: CategoryIndex
+            KeySchema:
+              - AttributeName: Category
+                AttributeType: HASH
+            Projection:
+              ProjectionType: ALL
 
         ProvisionedThroughput:
           ReadCapacityUnits: 1
