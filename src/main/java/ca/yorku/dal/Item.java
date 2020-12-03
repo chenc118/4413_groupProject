@@ -102,6 +102,7 @@ public class Item {
         av.put(":v1", new AttributeValue().withS("testCategory"));
 
         DynamoDBQueryExpression<Item> queryExp = new DynamoDBQueryExpression<Item>()
+                .withIndexName("CategoryIndex")
                 .withKeyConditionExpression("category = :v1")
                 .withExpressionAttributeValues(av);
 
