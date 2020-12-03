@@ -100,7 +100,7 @@ public class Item {
         List<Item> itemList = new ArrayList<Item>();
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
-        av.put(":v1", new AttributeValue().withS("testCategory"));
+        av.put(":v1", new AttributeValue().withS(categoryId));
 
         DynamoDBQueryExpression<Item> queryExp = new DynamoDBQueryExpression<Item>()
                 .withIndexName("CategoryIndex")

@@ -21,7 +21,6 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
         String itemId = pathParameters.get("itemId");
 
         Item item = new Item().get(itemId);
-        item.getByCategory("Test");
 
         if(item != null){
             return ApiGatewayResponse.builder()
