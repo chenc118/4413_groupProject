@@ -45,6 +45,26 @@ public class Category {
         this.id = id;
     }
     
+    public Category get(String id){
+        Category category = null;
+
+        HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
+        av.put(":v1", new AttributeValue().withS(id));
+
+        DynamoDBQueryExpression<Category> queryExp = new DynamoDBQueryExpression<Category>()
+                .withKeyConditionExpression("id = :v1")
+                .withExpressionAttributeValues(av);
+
+        PaginatedQueryList<Category> result = this.mapper.query(Category.class, queryExp);
+        if (result.size() > 0) {
+            category = result.get(0);
+            //logger.info("Products - get(): product - " + product.toString());
+        } else {
+            //logger.info("Products - get(): product - Not Found.");
+        }
+        return category;
+    }
+    
     public void save(){
         mapper.save(this);
     }
