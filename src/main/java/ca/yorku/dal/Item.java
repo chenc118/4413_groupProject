@@ -72,11 +72,11 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public Item get(int id){
+    public Item get(String id){
         Item item = null;
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
-        av.put(":v1", new AttributeValue().withN(""+id));
+        av.put(":v1", new AttributeValue().withS(id));
 
         DynamoDBQueryExpression<Item> queryExp = new DynamoDBQueryExpression<Item>()
                 .withKeyConditionExpression("id = :v1")
