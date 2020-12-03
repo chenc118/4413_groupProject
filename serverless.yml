@@ -165,6 +165,14 @@ functions:
           path: /review/new
           method: post
 
+
+  addCategory:
+    handler: ca.yorku.category.AddCategoryHandler
+    events:
+      - http:
+          path: /category/new
+          method: post
+
   searchItemsByCategory:
     handler: ca.yorku.search.SearchItemsByCategory
     events:
@@ -268,10 +276,10 @@ resources:
     categoryTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: categories_table
+        TableName: categories_table2
         AttributeDefinitions:
           - AttributeName: id
-            AttributeType: N
+            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
