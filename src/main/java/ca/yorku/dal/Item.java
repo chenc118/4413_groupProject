@@ -20,6 +20,7 @@ public class Item {
     private double price;
     private String name;
     private long quantity;
+    private Category category;
 
 
 
@@ -105,4 +106,11 @@ public class Item {
         return false;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
