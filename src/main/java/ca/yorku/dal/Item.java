@@ -96,12 +96,12 @@ public class Item {
         mapper.save(this);
     }
 
-    public boolean delete(int id){
-//        Item item;
-//        item = get(id);
-//        if(item != null){
-//
-//        }
+    public boolean delete(String id){
+        Item item;
+        item = get(id);
+        if(item != null){
+            mapper.delete(item);
+        }
         return false;
     }
 
