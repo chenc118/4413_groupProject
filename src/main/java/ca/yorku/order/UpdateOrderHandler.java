@@ -43,6 +43,9 @@ public class UpdateOrderHandler implements RequestHandler<Map<String, Object>, A
                         break;
                 }
             }
+            if(body.has("itemId")){
+                order.setItemId(body.get("itemId").asText());
+            }
             order.save();
 
             ApiGatewayResponse res =  ApiGatewayResponse.builder()

@@ -5,8 +5,11 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.serverless.dal.DynamoDBAdapter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Logger;
 
 @DynamoDBTable(tableName = "orders_table")
 public class Order {
@@ -21,6 +24,9 @@ public class Order {
     @DynamoDBTypeConvertedEnum
     private Status status;
     private String comment;
+    private String itemId;
+
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
     public Order(){
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
@@ -88,7 +94,28 @@ public class Order {
         }
         return order;
     }
+    public List<Order> getByItem(String itemId){
+        List<Order> orderList = new ArrayList<Order>();
 
+        HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
+        av.put(":v1", new AttributeValue().withS(itemId));
+
+        DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
+                .withIndexName("ItemsIndex")
+                .withConsistentRead(false)
+                .withKeyConditionExpression("itemId = :v1")
+                .withExpressionAttributeValues(av);
+
+        PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
+        if (result.size() > 0) {
+            for(Order o: result) {
+                orderList.add(o);
+            }
+        } else {
+            logger.info("Orders - get(): order - Not Found.");
+        }
+        return orderList;
+    }
     public void save(){
         mapper.save(this);
     }
@@ -101,6 +128,15 @@ public class Order {
             return true;
         }
         return false;
+    }
+
+    @DynamoDBAttribute(attributeName = "itemId")
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     public enum Status{

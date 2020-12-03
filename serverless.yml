@@ -171,7 +171,12 @@ functions:
       - http:
           path: /category/{categoryId}/items
           method: get
-
+  searchOrdersByItem:
+    handler: ca.yorku.search.SearchOrdersByItem
+    events:
+      - http:
+          path: /item/{itemId}/orders
+          method: get
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -277,13 +282,25 @@ resources:
     orderTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: orders_table
+        TableName: orders_table2
         AttributeDefinitions:
           - AttributeName: id
+            AttributeType: S
+          - AttributeName: itemId
             AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: ItemsIndex
+            KeySchema:
+              - AttributeName: itemId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

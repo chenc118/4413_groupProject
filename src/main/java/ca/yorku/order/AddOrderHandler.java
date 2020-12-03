@@ -32,6 +32,9 @@ public class AddOrderHandler implements RequestHandler<Map<String, Object>, ApiG
             if(body.has("comment")) {
                 newOrder.setComment(body.get("comment").asText());
             }
+            if(body.has("itemId")){
+                newOrder.setItemId(body.get("itemId").asText());
+            }
 //            switch(body.get("status").asText().toLowerCase()){
 //                case "placed": newOrder.setStatus(Order.Status.Placed);
 //                    break;
