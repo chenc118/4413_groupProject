@@ -10,6 +10,7 @@ public class Category {
 
     private String id;
     private String name;
+    private final DynamoDBMapper mapper;
 
     @DynamoDBAttribute(attributeName = "name")
     public String getName() {
@@ -28,5 +29,9 @@ public class Category {
 
     public void setId(String id) {
         this.id = id;
+    }
+    
+    public void save(){
+        mapper.save(this);
     }
 }
