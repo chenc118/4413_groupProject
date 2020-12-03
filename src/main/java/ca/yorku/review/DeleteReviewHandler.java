@@ -1,6 +1,6 @@
 package ca.yorku.review;
 
-import ca.yorku.dal.Order;
+import ca.yorku.dal.Review;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.serverless.ApiGatewayResponse;
@@ -13,7 +13,7 @@ public class DeleteReviewHandler implements RequestHandler<Map<String, Object>, 
         Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
         String reviewId = pathParameters.get("reviewId");
 
-        boolean deleted = new Order().delete(reviewId);
+        boolean deleted = new Review().delete(reviewId);
 
 
         if(deleted) {

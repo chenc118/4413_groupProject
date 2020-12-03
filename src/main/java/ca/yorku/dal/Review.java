@@ -38,7 +38,7 @@ public class Review {
         return id;
     }
 
-    public void setId(String id) {
+    private void setId(String id) {
         this.id = id;
     }
 
