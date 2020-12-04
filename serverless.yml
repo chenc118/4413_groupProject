@@ -186,12 +186,12 @@ functions:
           path: /item/{itemId}/orders
           method: get
 
-  getMonthlyReport:
-    handler: ca.yorku.analytics.MonthlyReportHandler
-    events:
-      - http:
-          path: /analytics/report/{year-month}
-          method: get
+#  getMonthlyReport:
+#    handler: ca.yorku.analytics.MonthlyReportHandler
+#    events:
+#      - http:
+#          path: /analytics/report/{year-month}
+#          method: get
 
   getTop10Report:
     handler: ca.yorku.analytics.GetTop10Report

@@ -23,7 +23,7 @@ public class AddUserHandler implements RequestHandler<Map<String, Object>, ApiGa
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
             User newUser = new User();
-            newUser.setUserId(body.get("uuid").asInt());
+            newUser.setUserId(body.get("userId").asInt());
             newUser.setFirstName(body.get("firstName").asText());
             newUser.setLastName(body.get("lastName").asText());
             newUser.setEmail(body.get("email").asText());
