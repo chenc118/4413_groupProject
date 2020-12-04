@@ -106,7 +106,7 @@ public class Order {
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
         av.put(":from", new AttributeValue().withS(year+"-"+month+"-01"));
-        av.put(":to", new AttributeValue().withSS(year+"-"+month+"-31"));
+        av.put(":to", new AttributeValue().withS(year+"-"+month+"-31"));
 
         DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
                 .withIndexName("DateIndex")
