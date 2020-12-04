@@ -192,7 +192,7 @@ public class Item {
     public static class ReviewId{
         private String reviewId;
 
-        @DynamoDBAttribute(attributeName = "reviewId")
+        @DynamoDBAttribute(attributeName = "id")
         public String getReviewId() {
             return reviewId;
         }
