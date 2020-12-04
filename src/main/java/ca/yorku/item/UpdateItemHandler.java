@@ -50,11 +50,9 @@ public class UpdateItemHandler implements RequestHandler<Map<String, Object>, Ap
                 item.setSoldBy(body.get("soldBy").asText());
             }
             if(body.has("reviews")&&body.get("reviews").isArray()){
-                ArrayList<Item.ReviewId> reviewList = new ArrayList<Item.ReviewId>();
+                ArrayList<String> reviewList = new ArrayList<>();
                 for(JsonNode reviewId: body.get("reviews")){
-                    Item.ReviewId rId = new Item.ReviewId();
-                    rId.setReviewId(reviewId.get("reviewId").asText());
-                    reviewList.add(rId);
+                    reviewList.add(reviewId.get("reviewId").asText());
                 }
                 item.setReviews(reviewList);
             }

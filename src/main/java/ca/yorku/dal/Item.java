@@ -30,8 +30,8 @@ public class Item {
     private String category;
     private String soldBy;
     private int numSold;
-    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
-    private ArrayList<ReviewId> reviews;
+    //@DynamoDBTypeConverted(converter = ReviewIdConverter.class)
+    private ArrayList<String> reviews;
 
 
 
@@ -173,11 +173,11 @@ public class Item {
 
     @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
     @DynamoDBAttribute(attributeName = "reviews")
-    public List<ReviewId> getReviews() {
+    public List<String> getReviews() {
         return reviews;
     }
 
-    public void setReviews(ArrayList<ReviewId> reviews) {
+    public void setReviews(ArrayList<String> reviews) {
         this.reviews = reviews;
     }
 

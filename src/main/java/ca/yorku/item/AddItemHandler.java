@@ -1,6 +1,5 @@
 package ca.yorku.item;
 
-import ca.yorku.dal.Category;
 import ca.yorku.dal.Item;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -41,11 +40,9 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
                 newItem.setSoldBy(body.get("soldBy").asText());
             }
             if(body.has("reviews")&&body.get("reviews").isArray()){
-                ArrayList<Item.ReviewId> reviewList = new ArrayList<Item.ReviewId>();
+                ArrayList<String> reviewList = new ArrayList<>();
                 for(JsonNode reviewId: body.get("reviews")){
-                    Item.ReviewId rId = new Item.ReviewId();
-                    rId.setReviewId(reviewId.get("reviewId").asText());
-                    reviewList.add(rId);
+                    reviewList.add(reviewId.get("reviewId").asText());
                 }
                 newItem.setReviews(reviewList);
             }
