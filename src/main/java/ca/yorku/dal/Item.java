@@ -124,7 +124,8 @@ public class Item {
     public List<Item> getAll(){
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
                 .withLimit(1);
-        return mapper.scan(Item.class, scanExpression);
+        PaginatedScanList<Item> result mapper.scan(Item.class, scanExpression);
+        return result;
     }
     public void save(){
         mapper.save(this);
