@@ -113,7 +113,7 @@ public class Order {
         DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
                 .withIndexName("DateIndex")
                 .withConsistentRead(false)
-                .withKeyConditionExpression("placedDate BEGINS_WITH :dateMonth AND partitionKeyDummy = :pkd")
+                .withKeyConditionExpression("BEGINS_WITH (placedDate,:dateMonth) AND partitionKeyDummy = :pkd")
                 .withExpressionAttributeValues(av);
 
         HashMap<String,ItemInfo> items = new HashMap<>();
