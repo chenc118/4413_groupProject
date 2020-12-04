@@ -26,7 +26,7 @@ public class CreateProductHandler implements RequestHandler<Map<String, Object>,
 
             // create the Product object for post
             Product product = new Product();
-            //product.setId(body.get("id").asText());
+            //product.setId(body.get("productId").asText());
             product.setName(body.get("name").asText());
             product.setPrice((float) body.get("price").asDouble());
             product.save(product);

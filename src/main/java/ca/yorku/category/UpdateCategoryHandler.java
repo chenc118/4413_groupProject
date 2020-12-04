@@ -18,7 +18,7 @@ public class UpdateCategoryHandler implements RequestHandler<Map<String, Object>
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
-        String categoryId = pathParameters.get("Id");
+        String categoryId = pathParameters.get("categoryId");
 
         Category category = new Category().get(categoryId);
         if(category==null){
@@ -30,8 +30,8 @@ public class UpdateCategoryHandler implements RequestHandler<Map<String, Object>
         try{
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
-            if(body.has("id")){
-                category.setCategoryId(body.get("id").asText());
+            if(body.has("categoryId")){
+                category.setCategoryId(body.get("categoryId").asText());
             }
             if(body.has("name")){
                 category.setName(body.get("name").asText());

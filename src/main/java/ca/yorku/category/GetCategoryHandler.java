@@ -14,7 +14,7 @@ public class GetCategoryHandler implements RequestHandler<Map<String, Object>, A
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
-        String categoryID = pathParameters.get("Id");
+        String categoryID = pathParameters.get("categoryId");
 
         Category category = new Category().get(categoryID);
 

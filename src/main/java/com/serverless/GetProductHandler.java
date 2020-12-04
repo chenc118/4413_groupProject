@@ -18,7 +18,7 @@ public class GetProductHandler implements RequestHandler<Map<String, Object>, Ap
         try {
             // get the 'pathParameters' from input
             Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
-            String productId = pathParameters.get("id");
+            String productId = pathParameters.get("productId");
 
             // get the Product by id
             Product product = new Product().get(productId);
