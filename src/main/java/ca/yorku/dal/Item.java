@@ -30,7 +30,7 @@ public class Item {
     private String category;
     private String soldBy;
     private int numSold;
-    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
+    //@DynamoDBTypeConverted(converter = ReviewIdConverter.class)
     private ArrayList<ReviewId> reviews;
 
 
@@ -129,7 +129,7 @@ public class Item {
     }
 
     @DynamoDBIgnore
-    public List<Map<String, AttributeValue>> getAll(){
+    public List<Map<String, AttributeValue>> listOfItems(){
         ScanRequest scanReq = new ScanRequest()
                 .withTableName("item_table6")
                 .withLimit(5)
@@ -171,7 +171,7 @@ public class Item {
         this.soldBy = soldBy;
     }
 
-    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
+    //@DynamoDBTypeConverted(converter = ReviewIdConverter.class)
     @DynamoDBAttribute(attributeName = "reviews")
     public List<ReviewId> getReviews() {
         return reviews;

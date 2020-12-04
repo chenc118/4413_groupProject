@@ -15,7 +15,7 @@ public class GetTop10Report implements RequestHandler<Map<String, Object>, ApiGa
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-        List<Map<String, AttributeValue>> allItems = new Item().getAll();
+        List<Map<String, AttributeValue>> allItems = new Item().listOfItems();
         PriorityQueue<Map<String, AttributeValue>> top = new PriorityQueue<>(
                 Comparator.comparingInt(o -> Integer.parseInt(o.get("numSold").getN())));
         for(Map<String, AttributeValue> i:allItems){
