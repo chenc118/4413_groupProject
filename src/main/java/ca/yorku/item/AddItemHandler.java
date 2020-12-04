@@ -10,6 +10,7 @@ import com.serverless.ApiGatewayResponse;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -40,9 +41,11 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
                 newItem.setSoldBy(body.get("soldBy").asText());
             }
             if(body.has("reviews")&&body.get("reviews").isArray()){
-                ArrayList<String> reviewList = new ArrayList<>();
+                List<Item.ReviewId> reviewList = new ArrayList<>();
                 for(JsonNode reviewId: body.get("reviews")){
-                    reviewList.add(reviewId.get("reviewId").asText());
+                    Item.ReviewId r = new Item.ReviewId();
+                    r.setReviewId(reviewId.get("reviewId").asText());
+                    reviewList.add(r);
                 }
                 newItem.setReviews(reviewList);
             }
