@@ -123,7 +123,7 @@ public class Item {
 
     public List<Item> getAll(){
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withLimit(10);
+                .withLimit(1);
         return mapper.scan(Item.class, scanExpression);
     }
     public void save(){
