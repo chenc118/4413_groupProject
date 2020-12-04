@@ -23,7 +23,7 @@ public class Category {
     @DynamoDBHashKey
     @Getter
     @Setter
-    private String id;
+    private String categoryId;
     @DynamoDBAttribute
     @Getter
     @Setter
@@ -38,14 +38,14 @@ public class Category {
         logger = Logger.getLogger(this.getClass().getName());
     }
 
-    public Category get(String id) {
+    public Category get(String categoryId) {
         Category category = null;
 
         Map<String, AttributeValue> av = new HashMap<>();
-        av.put(":v1", new AttributeValue().withS(id));
+        av.put(":v1", new AttributeValue().withS(categoryId));
 
         DynamoDBQueryExpression<Category> queryExp = new DynamoDBQueryExpression<Category>()
-                .withKeyConditionExpression("id = :v1")
+                .withKeyConditionExpression("categoryId = :v1")
                 .withExpressionAttributeValues(av);
 
         List<Category> result = this.mapper.query(Category.class, queryExp);
@@ -62,8 +62,8 @@ public class Category {
         mapper.save(this);
     }
 
-    public boolean delete(String id) {
-        Category category = get(id);
+    public boolean delete(String categoryId) {
+        Category category = get(categoryId);
         if (category != null) {
             mapper.delete(category);
             return true;

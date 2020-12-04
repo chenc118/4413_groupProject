@@ -27,7 +27,7 @@ public class Item {
     @DynamoDBHashKey
     @Getter
     @Setter
-    private String id;
+    private String itemId;
     @DynamoDBAttribute
     @Getter
     @Setter
@@ -66,14 +66,14 @@ public class Item {
         logger = Logger.getLogger(this.getClass().getName());
     }
 
-    public Item get(String id) {
+    public Item get(String itemId) {
         Item item = null;
 
         Map<String, AttributeValue> av = new HashMap<>();
-        av.put(":v1", new AttributeValue().withS(id));
+        av.put(":v1", new AttributeValue().withS(itemId));
 
         DynamoDBQueryExpression<Item> queryExp = new DynamoDBQueryExpression<Item>()
-                .withKeyConditionExpression("id = :v1")
+                .withKeyConditionExpression("itemId = :v1")
                 .withExpressionAttributeValues(av);
 
         List<Item> result = this.mapper.query(Item.class, queryExp);
@@ -113,14 +113,14 @@ public class Item {
         ScanRequest scanReq = new ScanRequest()
                 .withTableName("item_table6")
                 //.withLimit(5)
-                .withAttributesToGet("id", "numSold")
+                .withAttributesToGet("itemId", "numSold")
                 .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
         ScanResult result = client.scan(scanReq);
         List<Map<String, AttributeValue>> itemList = result.getItems();
         List<TopItemInfo> topInfo = new ArrayList<>();
         for (Map<String, AttributeValue> i : itemList) {
             TopItemInfo ti = new TopItemInfo();
-            ti.setItemId(i.get("id").getS());
+            ti.setItemId(i.get("itemId").getS());
             ti.setNumSold(Integer.parseInt(i.get("numSold").getN()));
             topInfo.add(ti);
         }
@@ -132,8 +132,8 @@ public class Item {
     }
 
     @DynamoDBIgnore
-    public boolean delete(String id) {
-        Item item = get(id);
+    public boolean delete(String itemId) {
+        Item item = get(itemId);
         if (item != null) {
             mapper.delete(item);
             return true;
@@ -143,16 +143,11 @@ public class Item {
 
     @DynamoDBDocument
     public static class ReviewId {
+
+        @DynamoDBAttribute
+        @Getter
+        @Setter
         private String reviewId;
-
-        @DynamoDBAttribute(attributeName = "id")
-        public String getReviewId() {
-            return reviewId;
-        }
-
-        public void setReviewId(String reviewId) {
-            this.reviewId = reviewId;
-        }
     }
 
     public static class TopItemInfo {

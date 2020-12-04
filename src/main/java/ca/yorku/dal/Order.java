@@ -3,9 +3,9 @@ package ca.yorku.dal;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.serverless.dal.DynamoDBAdapter;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ public class Order {
     @DynamoDBHashKey
     @Getter
     @Setter
-    private String id;
+    private String orderId;
     @DynamoDBAttribute
     @Getter
     @Setter
@@ -58,14 +58,14 @@ public class Order {
     }
 
     @DynamoDBIgnore
-    public Order get(String id) {
+    public Order get(String orderId) {
         Order order = null;
 
         Map<String, AttributeValue> av = new HashMap<>();
-        av.put(":v1", new AttributeValue().withS(id));
+        av.put(":v1", new AttributeValue().withS(orderId));
 
         DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
-                .withKeyConditionExpression("id = :v1")
+                .withKeyConditionExpression("orderId = :v1")
                 .withExpressionAttributeValues(av);
 
         List<Order> result = this.mapper.query(Order.class, queryExp);
@@ -101,12 +101,12 @@ public class Order {
     }
 
     @DynamoDBIgnore
-    public List<Order> monthlyReport(int month, int year){
+    public List<Order> monthlyReport(int month, int year) {
         List<Order> orderList = new ArrayList<Order>();
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
-        av.put(":from", new AttributeValue().withS(year+"-"+month+"-01"));
-        av.put(":to", new AttributeValue().withS(year+"-"+month+"-31"));
+        av.put(":from", new AttributeValue().withS(year + "-" + month + "-01"));
+        av.put(":to", new AttributeValue().withS(year + "-" + month + "-31"));
 
         DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
                 .withIndexName("DateIndex")
@@ -117,7 +117,7 @@ public class Order {
         PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
         if (result.size() > 0) {
             orderList.addAll(result);
-            logger.info("Orders found for year "+year+" month "+month+": "+result.size());
+            logger.info("Orders found for year " + year + " month " + month + ": " + result.size());
         } else {
             logger.info("Orders - get(): order - Not Found.");
         }
@@ -128,8 +128,8 @@ public class Order {
         mapper.save(this);
     }
 
-    public boolean delete(String id) {
-        Order order = get(id);
+    public boolean delete(String orderId) {
+        Order order = get(orderId);
         if (order != null) {
             mapper.delete(order);
             return true;

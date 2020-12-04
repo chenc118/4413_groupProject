@@ -23,7 +23,7 @@ public class Review {
     @DynamoDBHashKey
     @Getter
     @Setter
-    private String id;
+    private String reviewId;
     @DynamoDBAttribute
     @Getter
     @Setter
@@ -54,14 +54,14 @@ public class Review {
         logger = Logger.getLogger(this.getClass().getName());
     }
 
-    public Review get(String id) {
+    public Review get(String reviewId) {
         Review review = null;
 
         Map<String, AttributeValue> av = new HashMap<>();
-        av.put(":v1", new AttributeValue().withS(id));
+        av.put(":v1", new AttributeValue().withS(reviewId));
 
         DynamoDBQueryExpression<Review> queryExp = new DynamoDBQueryExpression<Review>()
-                .withKeyConditionExpression("id = :v1")
+                .withKeyConditionExpression("reviewId = :v1")
                 .withExpressionAttributeValues(av);
 
         List<Review> result = this.mapper.query(Review.class, queryExp);
@@ -78,8 +78,8 @@ public class Review {
         mapper.save(this);
     }
 
-    public boolean delete(String id) {
-        Review review = get(id);
+    public boolean delete(String reviewId) {
+        Review review = get(reviewId);
         if (review != null) {
             mapper.delete(review);
             return true;
