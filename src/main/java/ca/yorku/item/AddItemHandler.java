@@ -1,6 +1,7 @@
 package ca.yorku.item;
 
 import ca.yorku.dal.Item;
+import ca.yorku.dal.Review;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 
 public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
@@ -28,22 +29,22 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             Item newItem = new Item();
             newItem.setCategory(body.get("category").asText());
             newItem.setName(body.get("name").asText());
-            if(body.has("price")){
+            if (body.has("price")) {
                 newItem.setPrice(body.get("price").asDouble());
             }
-            if(body.has("quantity")){
+            if (body.has("quantity")) {
                 newItem.setQuantity(body.get("quantity").asLong());
             }
-            if(body.has("numSold")){
+            if (body.has("numSold")) {
                 newItem.setNumSold(body.get("numSold").asInt());
             }
-            if(body.has("soldBy")){
+            if (body.has("soldBy")) {
                 newItem.setSoldBy(body.get("soldBy").asText());
             }
-            if(body.has("reviews")&&body.get("reviews").isArray()){
-                List<Item.ReviewId> reviewList = new ArrayList<>();
-                for(JsonNode reviewId: body.get("reviews")){
-                    Item.ReviewId r = new Item.ReviewId();
+            if (body.has("reviews") && body.get("reviews").isArray()) {
+                List<Review.ReviewId> reviewList = new ArrayList<>();
+                for (JsonNode reviewId : body.get("reviews")) {
+                    Review.ReviewId r = new Review.ReviewId();
                     r.setReviewId(reviewId.get("reviewId").asText());
                     reviewList.add(r);
                 }
@@ -54,11 +55,11 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
                     .setStatusCode(201)
                     .setObjectBody(newItem)
                     .build();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);
-            logger.severe("Error in saving product: "+ex+sw.toString());
+            logger.severe("Error in saving product: " + ex + sw.toString());
 
             return ApiGatewayResponse.builder()
                     .setStatusCode(400)

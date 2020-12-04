@@ -55,7 +55,7 @@ public class Item {
     @DynamoDBAttribute
     @Getter
     @Setter
-    private List<ReviewId> reviews;
+    private List<Review.ReviewId> reviews;
 
     public Item() {
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder().build();
@@ -141,15 +141,6 @@ public class Item {
         return false;
     }
 
-    @DynamoDBDocument
-    public static class ReviewId {
-
-        @DynamoDBAttribute
-        @Getter
-        @Setter
-        private String reviewId;
-    }
-
     public static class TopItemInfo {
 
         @Getter
@@ -158,5 +149,14 @@ public class Item {
         @Getter
         @Setter
         private int numSold;
+    }
+
+    @DynamoDBDocument
+    public static class ItemId {
+
+        @DynamoDBAttribute
+        @Getter
+        @Setter
+        private String itemId;
     }
 }

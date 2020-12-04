@@ -107,9 +107,9 @@ public class Order {
 
     @DynamoDBIgnore
     public List<Order> monthlyReport(int month, int year) {
-        List<Order> orderList = new ArrayList<Order>();
+        List<Order> orderList = new ArrayList<>();
 
-        HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
+        Map<String, AttributeValue> av = new HashMap<>();
         av.put(":from", new AttributeValue().withS(year + "-" + month + "-01"));
         av.put(":to", new AttributeValue().withS(year + "-" + month + "-31"));
         av.put(":pkd", new AttributeValue().withS("orders"));

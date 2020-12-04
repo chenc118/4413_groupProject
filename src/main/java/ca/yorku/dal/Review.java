@@ -86,4 +86,13 @@ public class Review {
         }
         return false;
     }
+
+    @DynamoDBDocument
+    public static class ReviewId {
+
+        @DynamoDBAttribute
+        @Getter
+        @Setter
+        private String reviewId;
+    }
 }
