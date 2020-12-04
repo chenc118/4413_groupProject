@@ -184,6 +184,7 @@ public class Item {
         this.numSold = numSold;
     }
 
+    @DynamoDBDocument
     public static class ReviewId{
         private String reviewId;
 
