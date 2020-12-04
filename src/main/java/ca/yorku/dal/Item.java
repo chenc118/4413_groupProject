@@ -31,6 +31,7 @@ public class Item {
     private String soldBy;
     private int numSold;
     //@DynamoDBTypeConverted(converter = ReviewIdConverter.class)
+    @DynamoDBTypeConvertedJson
     private ArrayList<String> reviews;
 
 
