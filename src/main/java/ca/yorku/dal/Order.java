@@ -107,8 +107,6 @@ public class Order {
 
     @DynamoDBIgnore
     public List<ItemInfo> monthlyReport(String yearMonth) {
-        List<ItemInfo> orderList = new ArrayList<ItemInfo>();
-
         Map<String, AttributeValue> av = new HashMap<>();
         av.put(":date-month", new AttributeValue().withS(yearMonth));
         av.put(":pkd", new AttributeValue().withS("orders"));
@@ -122,13 +120,23 @@ public class Order {
         PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
         if (result.size() > 0) {
             for(Order o:result){
-
+                for(ItemInfo i:o.getItems()){
+                    if(items.containsKey(i.itemId)){
+                        ItemInfo cur = items.get(i.itemId);
+                        cur.setQuantity(i.quantity+cur.quantity);
+                        //items.put(i.itemId, cur);
+                    }
+                    else{
+                        items.put(i.itemId,i);
+                    }
+                }
             }
             //logger.info("Orders found for year " + year + " month " + month + ": " + result.size());
         } else {
             logger.info("Orders - get(): order - Not Found.");
         }
-        return orderList;
+
+        return List.copyOf(items.values());
     }
 
     public void save() {
