@@ -31,7 +31,7 @@ public class Item {
     private String soldBy;
     private int numSold;
     @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
-    private List<ReviewId> reviews;
+    private ArrayList<ReviewId> reviews;
 
 
 
@@ -173,7 +173,7 @@ public class Item {
         return reviews;
     }
 
-    public void setReviews(List<ReviewId> reviews) {
+    public void setReviews(ArrayList<ReviewId> reviews) {
         this.reviews = reviews;
     }
 
@@ -199,10 +199,10 @@ public class Item {
             this.reviewId = reviewId;
         }
     }
-    public static class ReviewIdConverter implements DynamoDBTypeConverter<String,List<ReviewId>> {
+    public static class ReviewIdConverter implements DynamoDBTypeConverter<String, ArrayList<ReviewId>> {
         private Logger logger = Logger.getLogger(this.getClass().getName());
         @Override
-        public String convert(List<ReviewId> reviewId) {
+        public String convert(ArrayList<ReviewId> reviewId) {
             StringBuilder sb = new StringBuilder();
             sb.append("[");
             boolean first = true;
@@ -216,8 +216,8 @@ public class Item {
         }
 
         @Override
-        public List<ReviewId> unconvert(String s) {
-            List<ReviewId> rId = new ArrayList<ReviewId>();
+        public ArrayList<ReviewId> unconvert(String s) {
+            ArrayList<ReviewId> rId = new ArrayList<ReviewId>();
             try {
                 JsonNode body = new ObjectMapper().readTree(s);
                 if(body.isArray()) {
