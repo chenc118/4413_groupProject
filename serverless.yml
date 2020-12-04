@@ -286,7 +286,7 @@ resources:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
         ProvisionedThroughput:
-          ReadCapacityUnits: 15
+          ReadCapacityUnits: 1
           WriteCapacityUnits: 1
     categoryTable:
       Type: AWS::DynamoDB::Table
