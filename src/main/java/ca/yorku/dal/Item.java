@@ -168,6 +168,7 @@ public class Item {
         this.soldBy = soldBy;
     }
 
+    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
     @DynamoDBAttribute(attributeName = "reviews")
     public List<ReviewId> getReviews() {
         return reviews;
