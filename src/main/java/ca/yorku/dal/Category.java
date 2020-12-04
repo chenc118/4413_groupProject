@@ -2,6 +2,7 @@ package ca.yorku.dal;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.util.HashMap;
 
 @Data
 @DynamoDBTable(tableName = "categories_table2")
+@JsonAutoDetect
 public class Category {
 
     private static DynamoDBAdapter db_adapter;

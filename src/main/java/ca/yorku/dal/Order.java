@@ -3,6 +3,7 @@ package ca.yorku.dal;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 
 @Data
 @DynamoDBTable(tableName = "orders_table2")
+@JsonAutoDetect
 public class Order {
 
     private static DynamoDBAdapter db_adapter;

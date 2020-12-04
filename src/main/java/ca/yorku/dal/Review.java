@@ -3,6 +3,7 @@ package ca.yorku.dal;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.util.HashMap;
 
 @Data
 @DynamoDBTable(tableName = "reviews_table")
+@JsonAutoDetect
 public class Review {
 
     private static DynamoDBAdapter db_adapter;

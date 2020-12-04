@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ReturnConsumedCapacity;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 
 @Data
 @DynamoDBTable(tableName = "item_table6")
+@JsonAutoDetect
 public class Item {
 
     private static DynamoDBAdapter db_adapter;
