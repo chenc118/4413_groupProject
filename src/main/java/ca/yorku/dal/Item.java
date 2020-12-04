@@ -121,6 +121,10 @@ public class Item {
         return itemList;
     }
 
+    public List<Item> getAll(){
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        return mapper.scan(Item.class, scanExpression);
+    }
     public void save(){
         mapper.save(this);
     }

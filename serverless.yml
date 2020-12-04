@@ -185,6 +185,14 @@ functions:
       - http:
           path: /item/{itemId}/orders
           method: get
+
+  getTop10Report:
+    handler: ca.yorku.analytics.GetTop10Report
+    events:
+      - http:
+          path: /analytics/report/top10
+          method: get
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
