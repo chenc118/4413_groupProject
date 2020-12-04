@@ -122,7 +122,8 @@ public class Item {
     }
 
     public List<Item> getAll(){
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withLimit(10);
         return mapper.scan(Item.class, scanExpression);
     }
     public void save(){
