@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "item_table6")
+@DynamoDBTable(tableName = "item_table7")
 public class Item {
 
     private final AmazonDynamoDB client;
@@ -111,7 +111,7 @@ public class Item {
     @DynamoDBIgnore
     public List<TopItemInfo> topItems() {
         ScanRequest scanReq = new ScanRequest()
-                .withTableName("item_table6")
+                .withTableName("item_table7")
                 //.withLimit(5)
                 .withAttributesToGet("itemId", "numSold")
                 .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "categories_table2")
+@DynamoDBTable(tableName = "categories_table3")
 public class Category {
 
     private final AmazonDynamoDB client;

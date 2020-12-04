@@ -12,7 +12,7 @@ import lombok.Setter;
 import java.util.*;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "orders_table5")
+@DynamoDBTable(tableName = "orders_table6")
 public class Order {
 
     private final AmazonDynamoDB client;

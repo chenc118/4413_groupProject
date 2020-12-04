@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "reviews_table")
+@DynamoDBTable(tableName = "reviews_table2")
 public class Review {
 
     private final AmazonDynamoDB client;
