@@ -23,7 +23,8 @@ public class Item {
     private long quantity;
     private String category;
     private String soldBy;
-    private List<String> reviews;
+    @DynamoDBTypeConvertedJson
+    private List<ReviewId> reviews;
 
 
 
@@ -152,11 +153,24 @@ public class Item {
     }
 
     @DynamoDBAttribute(attributeName = "reviews")
-    public List<String> getReviews() {
+    public List<ReviewId> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<String> reviews) {
+    public void setReviews(List<ReviewId> reviews) {
         this.reviews = reviews;
+    }
+
+    public static class ReviewId{
+        private String reviewId;
+
+        @DynamoDBAttribute(attributeName = "reviewId")
+        public String getReviewId() {
+            return reviewId;
+        }
+
+        public void setReviewId(String reviewId) {
+            this.reviewId = reviewId;
+        }
     }
 }
