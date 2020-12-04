@@ -29,6 +29,7 @@ provider:
        - "dynamodb:*"
      Resource: "*"
   timeout: 30
+  memory: 2048
 
 
 # you can overwrite defaults here
