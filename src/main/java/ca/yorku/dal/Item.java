@@ -171,7 +171,7 @@ public class Item {
         this.soldBy = soldBy;
     }
 
-    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
+    //@DynamoDBTypeConverted(converter = ReviewIdConverter.class)
     @DynamoDBAttribute(attributeName = "reviews")
     public List<String> getReviews() {
         return reviews;
@@ -190,54 +190,54 @@ public class Item {
         this.numSold = numSold;
     }
 
-    @DynamoDBDocument
-    public static class ReviewId{
-        private String reviewId;
-
-        @DynamoDBAttribute(attributeName = "reviewId")
-        public String getReviewId() {
-            return reviewId;
-        }
-
-        public void setReviewId(String reviewId) {
-            this.reviewId = reviewId;
-        }
-    }
-    public static class ReviewIdConverter implements DynamoDBTypeConverter<String, ArrayList<ReviewId>> {
-        private Logger logger = Logger.getLogger(this.getClass().getName());
-        @Override
-        public String convert(ArrayList<ReviewId> reviewId) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("[");
-            boolean first = true;
-            for(ReviewId rId: reviewId) {
-                if(!first) sb.append(",");
-                first = false;
-                sb.append("{\"reviewId\": \"" + rId.getReviewId() + "\"}");
-            }
-            sb.append("]");
-            return sb.toString();
-        }
-
-        @Override
-        public ArrayList<ReviewId> unconvert(String s) {
-            ArrayList<ReviewId> rId = new ArrayList<ReviewId>();
-            try {
-                JsonNode body = new ObjectMapper().readTree(s);
-                if(body.isArray()) {
-                    for(JsonNode node: body){
-                        if(node.has("reviewId")){
-                            ReviewId r = new ReviewId();
-                            r.setReviewId(node.get("reviewId").asText());
-                            rId.add(r);
-                        }
-                    }
-                }
-            }catch(Exception ex){
-                logger.severe(ex.getMessage());
-            }
-            return rId;
-
-        }
-    }
+//    @DynamoDBDocument
+//    public static class ReviewId{
+//        private String reviewId;
+//
+//        @DynamoDBAttribute(attributeName = "reviewId")
+//        public String getReviewId() {
+//            return reviewId;
+//        }
+//
+//        public void setReviewId(String reviewId) {
+//            this.reviewId = reviewId;
+//        }
+//    }
+//    public static class ReviewIdConverter implements DynamoDBTypeConverter<String, ArrayList<ReviewId>> {
+//        private Logger logger = Logger.getLogger(this.getClass().getName());
+//        @Override
+//        public String convert(ArrayList<ReviewId> reviewId) {
+//            StringBuilder sb = new StringBuilder();
+//            sb.append("[");
+//            boolean first = true;
+//            for(ReviewId rId: reviewId) {
+//                if(!first) sb.append(",");
+//                first = false;
+//                sb.append("{\"reviewId\": \"" + rId.getReviewId() + "\"}");
+//            }
+//            sb.append("]");
+//            return sb.toString();
+//        }
+//
+//        @Override
+//        public ArrayList<ReviewId> unconvert(String s) {
+//            ArrayList<ReviewId> rId = new ArrayList<ReviewId>();
+//            try {
+//                JsonNode body = new ObjectMapper().readTree(s);
+//                if(body.isArray()) {
+//                    for(JsonNode node: body){
+//                        if(node.has("reviewId")){
+//                            ReviewId r = new ReviewId();
+//                            r.setReviewId(node.get("reviewId").asText());
+//                            rId.add(r);
+//                        }
+//                    }
+//                }
+//            }catch(Exception ex){
+//                logger.severe(ex.getMessage());
+//            }
+//            return rId;
+//
+//        }
+//    }
 }
