@@ -108,7 +108,7 @@ public class Order {
     @DynamoDBIgnore
     public List<ItemInfo> monthlyReport(String yearMonth) {
         Map<String, AttributeValue> av = new HashMap<>();
-        av.put(":date-month", new AttributeValue().withS(yearMonth));
+        av.put(":dateMonth", new AttributeValue().withS(yearMonth));
         av.put(":pkd", new AttributeValue().withS("orders"));
         DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
                 .withIndexName("DateIndex")
