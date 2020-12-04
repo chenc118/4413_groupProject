@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ReturnConsumedCapacity;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Getter;
 import lombok.Setter;
@@ -146,6 +147,8 @@ public class Item {
         @Getter
         @Setter
         private String itemId;
+
+        @JsonIgnore
         @Getter
         @Setter
         private int numSold;
