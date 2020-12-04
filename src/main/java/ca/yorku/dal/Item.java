@@ -146,6 +146,7 @@ public class Item {
     }
 
     @Data
+    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     public static class TopItemInfo{
 
         private String itemId;
