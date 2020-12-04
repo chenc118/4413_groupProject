@@ -31,7 +31,7 @@ public class UpdateCategoryHandler implements RequestHandler<Map<String, Object>
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
             if(body.has("id")){
-                category.setId(body.get("id").asText());
+                category.setCategoryId(body.get("id").asText());
             }
             if(body.has("name")){
                 category.setName(body.get("name").asText());
@@ -39,7 +39,7 @@ public class UpdateCategoryHandler implements RequestHandler<Map<String, Object>
 
             category.save();
 
-            ApiGatewayResponse res =  ApiGatewayResponse.builder()
+            ApiGatewayResponse res = ApiGatewayResponse.builder()
                     .setStatusCode(200)
                     .setObjectBody(category)
                     .build();

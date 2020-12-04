@@ -28,7 +28,7 @@ public class AddCategoryHandler implements RequestHandler<Map<String, Object>, A
 				newCategory.setName(body.get("name").asText());
 			}
 			if(body.has("Id")){
-				newCategory.setId(body.get("Id").asText());
+				newCategory.setCategoryId(body.get("Id").asText());
 			}
 			
 			newCategory.save();
