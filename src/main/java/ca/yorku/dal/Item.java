@@ -186,7 +186,7 @@ public class Item {
         this.numSold = numSold;
     }
 
-    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
+    @DynamoDBDocument
     public static class ReviewId{
         private String reviewId;
 
