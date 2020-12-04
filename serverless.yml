@@ -166,6 +166,49 @@ functions:
           method: post
 
 
+#  getUser:
+#    handler: ca.yorku.user.GetUserHandler
+#    events:
+#      - http:
+#          path: /user/{userId}
+#          method: get
+#
+#  updateUser:
+#    handler: ca.yorku.user.UpdateUserHandler
+#    events:
+#      - http:
+#          path: /user/{userId}
+#          method: patch
+#
+#  deleteUser:
+#    handler: ca.yorku.user.DeleteUserHandler
+#    events:
+#      - http:
+#          path: /user/{userId}
+#          method: delete
+
+  addUser:
+    handler: ca.yorku.user.AddUserHandler
+    events:
+      - http:
+          path: /user/new
+          method: post
+
+#  loginUser:
+#    handler: ca.yorku.user.LoginUserHandler
+#    events:
+#      - http:
+#          path: /user/login
+#          method: post
+#
+#  logoutUser:
+#    handler: ca.yorku.user.LogoutUserHandler
+#    events:
+#      - http:
+#          path: /user/logout
+#          method: post
+
+
   addCategory:
     handler: ca.yorku.category.AddCategoryHandler
     events:
@@ -364,7 +407,7 @@ resources:
           - AttributeName: userId
             AttributeType: S
         KeySchema:
-          - AttributeName: reviewId
+          - AttributeName: userId
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
