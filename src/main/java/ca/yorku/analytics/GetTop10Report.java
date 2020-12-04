@@ -13,15 +13,14 @@ import java.util.logging.Logger;
 
 public class GetTop10Report implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
-    //private Logger logger = Logger.getLogger(this.getClass().getName());
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         List<Item> allItems = new Item().getAll();
         PriorityQueue<Item> top = new PriorityQueue<>(Comparator.comparingInt(Item::getNumSold));
         for(Item i:allItems){
-            //logger.info("Item scan: "+i.getId());
-            System.out.println("Item scan: "+i.getId());
+            logger.info("Item scan: "+i.getId());
             top.offer(i);
             if(top.size()>10){
                 top.poll();
