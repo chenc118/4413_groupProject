@@ -106,23 +106,22 @@ public class Order {
     }
 
     @DynamoDBIgnore
-    public List<Order> monthlyReport(int month, int year) {
+    public List<Order> monthlyReport(String yearMonth) {
         List<Order> orderList = new ArrayList<>();
 
         Map<String, AttributeValue> av = new HashMap<>();
-        av.put(":from", new AttributeValue().withS(year + "-" + month + "-01"));
-        av.put(":to", new AttributeValue().withS(year + "-" + month + "-31"));
+        av.put(":date-month", new AttributeValue().withS(yearMonth));
         av.put(":pkd", new AttributeValue().withS("orders"));
         DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
                 .withIndexName("DateIndex")
                 .withConsistentRead(false)
-                .withKeyConditionExpression("placedDate BETWEEN :from AND :to AND partitionKeyDummy = :pkd")
+                .withKeyConditionExpression("placedDate BEGINS_WITH :dateMonth AND partitionKeyDummy = :pkd")
                 .withExpressionAttributeValues(av);
 
         PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
         if (result.size() > 0) {
             orderList.addAll(result);
-            logger.info("Orders found for year " + year + " month " + month + ": " + result.size());
+            logger.info("Orders found for " + yearMonth + ": " + result.size());
         } else {
             logger.info("Orders - get(): order - Not Found.");
         }
