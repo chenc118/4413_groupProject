@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "item_table7") //Need to change this item_table7 to something that matches users
+@DynamoDBTable(tableName = "user_table")
 public class User {
 
     private final AmazonDynamoDB client;
@@ -27,7 +27,7 @@ public class User {
     @DynamoDBHashKey
     @Getter
     @Setter
-    private int uuid;
+    private int userId;
     @DynamoDBAttribute
     @Getter
     @Setter

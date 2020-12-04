@@ -356,6 +356,19 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+    userTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: user_table
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: reviewId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 
 
 # you can add CloudFormation resource templates here
