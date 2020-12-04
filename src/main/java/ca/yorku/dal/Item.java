@@ -6,6 +6,8 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ReturnConsumedCapacity;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverless.dal.DynamoDBAdapter;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class Item {
     private String category;
     private String soldBy;
     private int numSold;
-    @DynamoDBTypeConvertedJson
+    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
     private List<ReviewId> reviews;
 
 
@@ -195,6 +197,29 @@ public class Item {
 
         public void setReviewId(String reviewId) {
             this.reviewId = reviewId;
+        }
+    }
+    public static class ReviewIdConverter implements DynamoDBTypeConverter<String, ReviewId> {
+        private Logger logger = Logger.getLogger(this.getClass().getName());
+        @Override
+        public String convert(ReviewId reviewId) {
+            return "{\"reviewId\": \""+reviewId.getReviewId()+"\"}";
+        }
+
+        @Override
+        public ReviewId unconvert(String s) {
+            ReviewId rId = new ReviewId();
+            try {
+                JsonNode body = new ObjectMapper().readTree(s);
+
+                if (body.has("reviewId")) {
+                    rId.setReviewId(body.get("reviewId").asText());
+                }
+            }catch(Exception ex){
+                logger.severe(ex.getMessage());
+            }
+            return rId;
+
         }
     }
 }
