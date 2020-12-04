@@ -5,10 +5,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.serverless.ApiGatewayResponse;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class GetTop10Report implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
@@ -26,9 +23,14 @@ public class GetTop10Report implements RequestHandler<Map<String, Object>, ApiGa
                 top.poll();
             }
         }
+        logger.info("Iter Done");
+        ArrayList<Item> top10 = new ArrayList<Item>();
+        for(Item i:top){
+            top10.add(i);
+        }
         return ApiGatewayResponse.builder()
                 .setStatusCode(200)
-                .setObjectBody(top)
+                .setObjectBody(top10)
                 .build();
     }
 }
