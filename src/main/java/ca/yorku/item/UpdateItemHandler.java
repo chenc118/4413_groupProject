@@ -43,6 +43,9 @@ public class UpdateItemHandler implements RequestHandler<Map<String, Object>, Ap
             if(body.has("quantity")){
                 item.setQuantity(body.get("quantity").asLong());
             }
+            if(body.has("numSold")){
+                item.setNumSold(body.get("numSold").asInt());
+            }
             if(body.has("soldBy")){
                 item.setSoldBy(body.get("soldBy").asText());
             }

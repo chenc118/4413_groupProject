@@ -34,6 +34,9 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             if(body.has("quantity")){
                 newItem.setQuantity(body.get("quantity").asLong());
             }
+            if(body.has("numSold")){
+                newItem.setNumSold(body.get("numSold").asInt());
+            }
             if(body.has("soldBy")){
                 newItem.setSoldBy(body.get("soldBy").asText());
             }
