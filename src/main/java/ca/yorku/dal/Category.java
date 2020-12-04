@@ -4,10 +4,13 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.serverless.dal.DynamoDBAdapter;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 
+@AllArgsConstructor
 @Data
 @DynamoDBTable(tableName = "categories_table2")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)

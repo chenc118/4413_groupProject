@@ -5,7 +5,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.serverless.dal.DynamoDBAdapter;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
+@AllArgsConstructor
 @Data
 @DynamoDBTable(tableName = "orders_table2")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)

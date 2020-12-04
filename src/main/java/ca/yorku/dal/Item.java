@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@AllArgsConstructor
 @Data
 @DynamoDBTable(tableName = "item_table6")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -145,8 +146,10 @@ public class Item {
         }
     }
 
+    @AllArgsConstructor
     @Data
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+    @NoArgsConstructor
     public static class TopItemInfo{
 
         private String itemId;
