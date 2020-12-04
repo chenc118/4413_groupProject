@@ -16,10 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@AllArgsConstructor
-@Data
 @DynamoDBTable(tableName = "item_table6")
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Item {
 
     private static DynamoDBAdapter db_adapter;
@@ -43,6 +40,70 @@ public class Item {
     private int numSold;
     @DynamoDBAttribute
     private List<ReviewId> reviews;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSoldBy() {
+        return soldBy;
+    }
+
+    public void setSoldBy(String soldBy) {
+        this.soldBy = soldBy;
+    }
+
+    public int getNumSold() {
+        return numSold;
+    }
+
+    public void setNumSold(int numSold) {
+        this.numSold = numSold;
+    }
+
+    public List<ReviewId> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewId> reviews) {
+        this.reviews = reviews;
+    }
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -146,13 +207,26 @@ public class Item {
         }
     }
 
-    @AllArgsConstructor
-    @Data
-    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-    @NoArgsConstructor
     public static class TopItemInfo{
 
+        public String getItemId() {
+            return itemId;
+        }
+
+        public void setItemId(String itemId) {
+            this.itemId = itemId;
+        }
+
         private String itemId;
+
+        public int getNumSold() {
+            return numSold;
+        }
+
+        public void setNumSold(int numSold) {
+            this.numSold = numSold;
+        }
+
         private int numSold;
 
     }

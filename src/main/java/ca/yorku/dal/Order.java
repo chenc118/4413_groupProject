@@ -15,10 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
-@AllArgsConstructor
-@Data
 @DynamoDBTable(tableName = "orders_table2")
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Order {
 
     private static DynamoDBAdapter db_adapter;
@@ -37,6 +34,46 @@ public class Order {
     private String comment;
     @DynamoDBAttribute
     private String itemId;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getPlacedDate() {
+        return placedDate;
+    }
+
+    public void setPlacedDate(Date placedDate) {
+        this.placedDate = placedDate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
 

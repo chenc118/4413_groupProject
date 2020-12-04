@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 
-@AllArgsConstructor
-@Data
 @DynamoDBTable(tableName = "reviews_table")
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Review {
 
     private static DynamoDBAdapter db_adapter;
@@ -34,6 +31,54 @@ public class Review {
     private String title;
     @DynamoDBAttribute
     private String content;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public Review() {
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
