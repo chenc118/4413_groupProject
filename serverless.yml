@@ -305,11 +305,13 @@ resources:
     orderTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: orders_table2
+        TableName: orders_table3
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
           - AttributeName: itemId
+            AttributeType: S
+          - AttributeName: placeDate
             AttributeType: S
         KeySchema:
           - AttributeName: id
@@ -318,6 +320,15 @@ resources:
           - IndexName: ItemsIndex
             KeySchema:
               - AttributeName: itemId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+          - IndexName: DateIndex
+            KeySchema:
+              - AttributeName: placedDate
                 KeyType: HASH
             Projection:
               ProjectionType: ALL

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "orders_table2")
+@DynamoDBTable(tableName = "orders_table3")
 public class Order {
 
     private static DynamoDBAdapter db_adapter;
