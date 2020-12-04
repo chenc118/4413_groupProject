@@ -52,7 +52,7 @@ public class Order {
 
     @JsonIgnore
     @DynamoDBAttribute
-    private String partitionKeyDummy;
+    private String partitionKeyDummy = "orders";
 
     public Order() {
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder().build();
@@ -149,7 +149,7 @@ public class Order {
     }
 
     public void setPartitionKeyDummy(String partitionKeyDummy) {
-        this.partitionKeyDummy = partitionKeyDummy;
+        this.partitionKeyDummy = "orders";
     }
 
     public enum Status {
