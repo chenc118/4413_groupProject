@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 @Data
 @DynamoDBTable(tableName = "categories_table2")
-@JsonAutoDetect
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Category {
 
     private static DynamoDBAdapter db_adapter;

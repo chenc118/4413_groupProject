@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 @Data
 @DynamoDBTable(tableName = "reviews_table")
-@JsonAutoDetect
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Review {
 
     private static DynamoDBAdapter db_adapter;

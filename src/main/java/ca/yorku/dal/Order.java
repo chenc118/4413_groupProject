@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 @Data
 @DynamoDBTable(tableName = "orders_table2")
-@JsonAutoDetect
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Order {
 
     private static DynamoDBAdapter db_adapter;
