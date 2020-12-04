@@ -30,18 +30,17 @@ public class Review {
     @DynamoDBAttribute
     private String content;
 
-
-    public Review(){
+    public Review() {
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
                 .build();
         // get the db adapter
-        this.db_adapter = DynamoDBAdapter.getInstance();
-        this.client = this.db_adapter.getDbClient();
+        db_adapter = DynamoDBAdapter.getInstance();
+        this.client = db_adapter.getDbClient();
         // create the mapper with config
-        this.mapper = this.db_adapter.createDbMapper(mapperConfig);
+        this.mapper = db_adapter.createDbMapper(mapperConfig);
     }
 
-    public Review get(String id){
+    public Review get(String id) {
         Review review = null;
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
@@ -61,14 +60,14 @@ public class Review {
         return review;
     }
 
-    public void save(){
+    public void save() {
         mapper.save(this);
     }
 
-    public boolean delete(String id){
+    public boolean delete(String id) {
         Review review;
         review = get(id);
-        if(review != null){
+        if (review != null) {
             mapper.delete(review);
             return true;
         }

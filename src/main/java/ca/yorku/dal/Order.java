@@ -35,17 +35,17 @@ public class Order {
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public Order(){
+    public Order() {
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
                 .build();
         // get the db adapter
-        this.db_adapter = DynamoDBAdapter.getInstance();
-        this.client = this.db_adapter.getDbClient();
+        db_adapter = DynamoDBAdapter.getInstance();
+        this.client = db_adapter.getDbClient();
         // create the mapper with config
-        this.mapper = this.db_adapter.createDbMapper(mapperConfig);
+        this.mapper = db_adapter.createDbMapper(mapperConfig);
     }
 
-    public Order get(String id){
+    public Order get(String id) {
         Order order = null;
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
@@ -64,7 +64,8 @@ public class Order {
         }
         return order;
     }
-    public List<Order> getByItem(String itemId){
+
+    public List<Order> getByItem(String itemId) {
         List<Order> orderList = new ArrayList<Order>();
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
@@ -78,31 +79,30 @@ public class Order {
 
         PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
         if (result.size() > 0) {
-            for(Order o: result) {
-                orderList.add(o);
-            }
+            orderList.addAll(result);
         } else {
             logger.info("Orders - get(): order - Not Found.");
         }
         return orderList;
     }
-    public void save(){
+
+    public void save() {
         mapper.save(this);
     }
 
-    public boolean delete(String id){
+    public boolean delete(String id) {
         Order order;
         order = get(id);
-        if(order != null){
+        if (order != null) {
             mapper.delete(order);
             return true;
         }
         return false;
     }
 
-    public enum Status{
+    public enum Status {
         Placed,
         Shipped,
-        Delivered;
+        Delivered
     }
 }

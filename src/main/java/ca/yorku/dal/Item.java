@@ -6,8 +6,6 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ReturnConsumedCapacity;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Data;
 
@@ -43,21 +41,19 @@ public class Item {
     @DynamoDBAttribute
     private List<ReviewId> reviews;
 
-
-
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public Item(){
+    public Item() {
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
                 .build();
         // get the db adapter
-        this.db_adapter = DynamoDBAdapter.getInstance();
-        this.client = this.db_adapter.getDbClient();
+        db_adapter = DynamoDBAdapter.getInstance();
+        this.client = db_adapter.getDbClient();
         // create the mapper with config
-        this.mapper = this.db_adapter.createDbMapper(mapperConfig);
+        this.mapper = db_adapter.createDbMapper(mapperConfig);
     }
 
-    public Item get(String id){
+    public Item get(String id) {
         Item item = null;
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
@@ -78,7 +74,7 @@ public class Item {
     }
 
     @DynamoDBIgnore
-    public List<Item> getByCategory(String categoryId){
+    public List<Item> getByCategory(String categoryId) {
         List<Item> itemList = new ArrayList<Item>();
 
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
@@ -92,9 +88,7 @@ public class Item {
 
         PaginatedQueryList<Item> result = this.mapper.query(Item.class, queryExp);
         if (result.size() > 0) {
-            for(Item i: result) {
-                itemList.add(i);
-            }
+            itemList.addAll(result);
         } else {
             logger.info("Products - get(): product - Not Found.");
         }
@@ -102,24 +96,25 @@ public class Item {
     }
 
     @DynamoDBIgnore
-    public List<Map<String, AttributeValue>> listOfItems(){
+    public List<Map<String, AttributeValue>> listOfItems() {
         ScanRequest scanReq = new ScanRequest()
                 .withTableName("item_table6")
                 .withLimit(5)
-                .withAttributesToGet(new String[]{"id","numSold"})
+                .withAttributesToGet("id", "numSold")
                 .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
         ScanResult result = client.scan(scanReq);
         return result.getItems();
     }
-    public void save(){
+
+    public void save() {
         mapper.save(this);
     }
 
     @DynamoDBIgnore
-    public boolean delete(String id){
+    public boolean delete(String id) {
         Item item;
         item = get(id);
-        if(item != null){
+        if (item != null) {
             mapper.delete(item);
             return true;
         }
@@ -127,7 +122,7 @@ public class Item {
     }
 
     @DynamoDBDocument
-    public static class ReviewId{
+    public static class ReviewId {
         private String reviewId;
 
         @DynamoDBAttribute(attributeName = "id")
