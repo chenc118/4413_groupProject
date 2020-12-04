@@ -246,12 +246,12 @@ resources:
       Properties:
         TableName: products_table
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: productId
             AttributeType: S
           - AttributeName: name
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: productId
             KeyType: HASH
           - AttributeName: name
             KeyType: RANGE
@@ -264,14 +264,14 @@ resources:
       Properties:
         TableName: item_table6
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: itemId
             AttributeType: S
           - AttributeName: name
             AttributeType: S
           - AttributeName: category
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: itemId
             KeyType: HASH
           - AttributeName: name
             KeyType: RANGE
@@ -293,10 +293,10 @@ resources:
       Properties:
         TableName: categories_table2
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: categoryId
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: categoryId
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
@@ -307,7 +307,7 @@ resources:
       Properties:
         TableName: orders_table5
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: orderId
             AttributeType: S
           - AttributeName: itemId
             AttributeType: S
@@ -316,7 +316,7 @@ resources:
           - AttributeName: partitionKeyDummy
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: orderId
             KeyType: HASH
         GlobalSecondaryIndexes:
           - IndexName: ItemsIndex
@@ -348,10 +348,10 @@ resources:
       Properties:
         TableName: reviews_table
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: reviewId
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: reviewId
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
