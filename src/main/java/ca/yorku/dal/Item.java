@@ -9,6 +9,7 @@ import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverless.dal.DynamoDBAdapter;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@Data
 @DynamoDBTable(tableName = "item_table6")
 public class Item {
 
@@ -53,38 +55,6 @@ public class Item {
         this.client = this.db_adapter.getDbClient();
         // create the mapper with config
         this.mapper = this.db_adapter.createDbMapper(mapperConfig);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(long quantity) {
-        this.quantity = quantity;
     }
 
     public Item get(String id){
@@ -154,38 +124,6 @@ public class Item {
             return true;
         }
         return false;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSoldBy() {
-        return soldBy;
-    }
-
-    public void setSoldBy(String soldBy) {
-        this.soldBy = soldBy;
-    }
-
-    public List<ReviewId> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<ReviewId> reviews) {
-        this.reviews = reviews;
-    }
-
-    public int getNumSold() {
-        return numSold;
-    }
-
-    public void setNumSold(int numSold) {
-        this.numSold = numSold;
     }
 
     @DynamoDBDocument
