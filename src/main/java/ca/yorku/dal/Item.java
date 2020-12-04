@@ -30,7 +30,7 @@ public class Item {
     private String category;
     private String soldBy;
     private int numSold;
-    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
+
     private List<ReviewId> reviews;
 
 
@@ -186,7 +186,7 @@ public class Item {
         this.numSold = numSold;
     }
 
-    @DynamoDBDocument
+    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
     public static class ReviewId{
         private String reviewId;
 
