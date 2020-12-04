@@ -57,6 +57,7 @@ public class Order {
         logger = Logger.getLogger(this.getClass().getName());
     }
 
+    @DynamoDBIgnore
     public Order get(String id) {
         Order order = null;
 
@@ -77,6 +78,7 @@ public class Order {
         return order;
     }
 
+    @DynamoDBIgnore
     public List<Order> getByItem(String itemId) {
         List<Order> orderList = new ArrayList<>();
 
@@ -92,6 +94,30 @@ public class Order {
         List<Order> result = this.mapper.query(Order.class, queryExp);
         if (result.size() > 0) {
             orderList.addAll(result);
+        } else {
+            logger.info("Orders - get(): order - Not Found.");
+        }
+        return orderList;
+    }
+
+    @DynamoDBIgnore
+    public List<Order> monthlyReport(int month, int year){
+        List<Order> orderList = new ArrayList<Order>();
+
+        HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
+        av.put(":from", new AttributeValue().withS(year+"-"+month+"-01"));
+        av.put(":to", new AttributeValue().withSS(year+"-"+month+"-31"));
+
+        DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
+                .withIndexName("DateIndex")
+                .withConsistentRead(false)
+                .withKeyConditionExpression("placedDate BETWEEN :from AND :to")
+                .withExpressionAttributeValues(av);
+
+        PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
+        if (result.size() > 0) {
+            orderList.addAll(result);
+            logger.info("Orders found for year "+year+" month "+month+": "+result.size());
         } else {
             logger.info("Orders - get(): order - Not Found.");
         }
