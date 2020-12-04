@@ -3,6 +3,8 @@ package ca.yorku.dal;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +12,7 @@ import lombok.Setter;
 import java.util.*;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "orders_table3")
+@DynamoDBTable(tableName = "orders_table5")
 public class Order {
 
     private final AmazonDynamoDB client;
@@ -47,6 +49,10 @@ public class Order {
     @Getter
     @Setter
     private String itemId;
+
+    @JsonIgnore
+    @DynamoDBAttribute
+    private String partitionKeyDummy;
 
     public Order() {
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder().build();
@@ -110,6 +116,7 @@ public class Order {
 
         DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
                 .withIndexName("DateIndex")
+                .withHashKeyValues(new Order())
                 .withConsistentRead(false)
                 .withKeyConditionExpression("placedDate BETWEEN :from AND :to")
                 .withExpressionAttributeValues(av);
@@ -135,6 +142,14 @@ public class Order {
             return true;
         }
         return false;
+    }
+
+    public String getPartitionKeyDummy() {
+        return "orders";
+    }
+
+    public void setPartitionKeyDummy(String partitionKeyDummy) {
+        this.partitionKeyDummy = partitionKeyDummy;
     }
 
     public enum Status {
