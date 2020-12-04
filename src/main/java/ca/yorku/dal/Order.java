@@ -121,13 +121,14 @@ public class Order {
         if (result.size() > 0) {
             for(Order o:result){
                 for(ItemInfo i:o.getItems()){
-                    if(items.containsKey(i.itemId)){
-                        ItemInfo cur = items.get(i.itemId);
-                        cur.setQuantity(i.quantity+cur.quantity);
-                        //items.put(i.itemId, cur);
-                    }
-                    else{
-                        items.put(i.itemId,i);
+                    if(i!=null) {
+                        if (items.containsKey(i.itemId)) {
+                            ItemInfo cur = items.get(i.itemId);
+                            cur.setQuantity(i.quantity + cur.quantity);
+                            //items.put(i.itemId, cur);
+                        } else {
+                            items.put(i.itemId, i);
+                        }
                     }
                 }
             }
