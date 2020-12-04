@@ -104,6 +104,7 @@ public class Item {
         return item;
     }
 
+    @DynamoDBIgnore
     public List<Item> getByCategory(String categoryId){
         List<Item> itemList = new ArrayList<Item>();
 
@@ -127,6 +128,7 @@ public class Item {
         return itemList;
     }
 
+    @DynamoDBIgnore
     public List<Map<String, AttributeValue>> getAll(){
         ScanRequest scanReq = new ScanRequest()
                 .withTableName("item_table6")
@@ -140,6 +142,7 @@ public class Item {
         mapper.save(this);
     }
 
+    @DynamoDBIgnore
     public boolean delete(String id){
         Item item;
         item = get(id);
