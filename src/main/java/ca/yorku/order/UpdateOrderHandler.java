@@ -54,8 +54,8 @@ public class UpdateOrderHandler implements RequestHandler<Map<String, Object>, A
                 ArrayList<Order.ItemInfo> items = new ArrayList<>();
                 for(JsonNode i : body.get("items")){
                     Order.ItemInfo it = new Order.ItemInfo();
-                    it.setItemId(body.get("itemId").asText());
-                    it.setQuantity(body.get("quantity").asInt());
+                    it.setItemId(i.get("itemId").asText());
+                    it.setQuantity(i.get("quantity").asInt());
                     items.add(it);
                 }
                 order.setItems(items);
