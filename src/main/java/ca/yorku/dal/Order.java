@@ -47,7 +47,7 @@ public class Order {
     @DynamoDBAttribute
     @Getter
     @Setter
-    private String itemId;
+    private List<ItemInfo> items;
 
     @JsonIgnore
     @DynamoDBAttribute
@@ -106,8 +106,8 @@ public class Order {
     }
 
     @DynamoDBIgnore
-    public List<Order> monthlyReport(String yearMonth) {
-        List<Order> orderList = new ArrayList<>();
+    public List<ItemInfo> monthlyReport(String yearMonth) {
+        List<ItemInfo> orderList = new ArrayList<ItemInfo>();
 
         Map<String, AttributeValue> av = new HashMap<>();
         av.put(":date-month", new AttributeValue().withS(yearMonth));
@@ -118,10 +118,13 @@ public class Order {
                 .withKeyConditionExpression("placedDate BEGINS_WITH :dateMonth AND partitionKeyDummy = :pkd")
                 .withExpressionAttributeValues(av);
 
+        HashMap<String,ItemInfo> items = new HashMap<>();
         PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
         if (result.size() > 0) {
-            orderList.addAll(result);
-            logger.info("Orders found for " + yearMonth + ": " + result.size());
+            for(Order o:result){
+
+            }
+            //logger.info("Orders found for year " + year + " month " + month + ": " + result.size());
         } else {
             logger.info("Orders - get(): order - Not Found.");
         }
@@ -153,5 +156,17 @@ public class Order {
         Placed,
         Shipped,
         Delivered
+    }
+
+    @DynamoDBDocument
+    public static class ItemInfo{
+        @DynamoDBAttribute
+        @Getter
+        @Setter
+        private String itemId;
+        @DynamoDBAttribute
+        @Getter
+        @Setter
+        private int quantity;
     }
 }
