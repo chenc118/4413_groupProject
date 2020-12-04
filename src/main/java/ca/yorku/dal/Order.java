@@ -112,12 +112,11 @@ public class Order {
         HashMap<String, AttributeValue> av = new HashMap<String, AttributeValue>();
         av.put(":from", new AttributeValue().withS(year + "-" + month + "-01"));
         av.put(":to", new AttributeValue().withS(year + "-" + month + "-31"));
-
+        av.put(":pkd", new AttributeValue().withS("orders"));
         DynamoDBQueryExpression<Order> queryExp = new DynamoDBQueryExpression<Order>()
                 .withIndexName("DateIndex")
-                .withHashKeyValues(new Order())
                 .withConsistentRead(false)
-                .withKeyConditionExpression("placedDate BETWEEN :from AND :to")
+                .withKeyConditionExpression("placedDate BETWEEN :from AND :to AND partitionKeyDummy = :pkd")
                 .withExpressionAttributeValues(av);
 
         PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
