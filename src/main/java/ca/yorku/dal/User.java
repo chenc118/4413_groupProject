@@ -65,7 +65,7 @@ public class User {
         av.put(":v1", new AttributeValue().withS(uuid));
 
         DynamoDBQueryExpression<User> queryExp = new DynamoDBQueryExpression<User>()
-                .withKeyConditionExpression("uuid = :v1")
+                .withKeyConditionExpression("userId = :v1")
                 .withExpressionAttributeValues(av);
 
         List<User> result = this.mapper.query(User.class, queryExp);
@@ -82,8 +82,8 @@ public class User {
         mapper.save(this);
     }
 
-    public boolean delete(String uuid) {
-        User user = get(uuid);
+    public boolean delete(String userId) {
+        User user = get(userId);
         if (user != null) {
             mapper.delete(user);
             return true;
