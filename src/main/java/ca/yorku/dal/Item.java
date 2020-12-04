@@ -30,7 +30,7 @@ public class Item {
     private String category;
     private String soldBy;
     private int numSold;
-
+    @DynamoDBTypeConverted(converter = ReviewIdConverter.class)
     private List<ReviewId> reviews;
 
 
@@ -199,21 +199,35 @@ public class Item {
             this.reviewId = reviewId;
         }
     }
-    public static class ReviewIdConverter implements DynamoDBTypeConverter<String, ReviewId> {
+    public static class ReviewIdConverter implements DynamoDBTypeConverter<String,List<ReviewId>> {
         private Logger logger = Logger.getLogger(this.getClass().getName());
         @Override
-        public String convert(ReviewId reviewId) {
-            return "{\"reviewId\": \""+reviewId.getReviewId()+"\"}";
+        public String convert(List<ReviewId> reviewId) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            boolean first = true;
+            for(ReviewId rId: reviewId) {
+                if(!first) sb.append(",");
+                first = false;
+                sb.append("{\"reviewId\": \"" + rId.getReviewId() + "\"}");
+            }
+            sb.append("]");
+            return sb.toString();
         }
 
         @Override
-        public ReviewId unconvert(String s) {
-            ReviewId rId = new ReviewId();
+        public List<ReviewId> unconvert(String s) {
+            List<ReviewId> rId = new ArrayList<ReviewId>();
             try {
                 JsonNode body = new ObjectMapper().readTree(s);
-
-                if (body.has("reviewId")) {
-                    rId.setReviewId(body.get("reviewId").asText());
+                if(body.isArray()) {
+                    for(JsonNode node: body){
+                        if(node.has("reviewId")){
+                            ReviewId r = new ReviewId();
+                            r.setReviewId(node.get("reviewId").asText());
+                            rId.add(r);
+                        }
+                    }
                 }
             }catch(Exception ex){
                 logger.severe(ex.getMessage());
