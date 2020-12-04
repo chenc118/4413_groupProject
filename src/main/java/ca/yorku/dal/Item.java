@@ -8,7 +8,7 @@ import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.serverless.dal.DynamoDBAdapter;
-import lombok.Data;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,14 +98,22 @@ public class Item {
     }
 
     @DynamoDBIgnore
-    public List<Map<String, AttributeValue>> listOfItems() {
+    public List<TopItemInfo> topItems(){
         ScanRequest scanReq = new ScanRequest()
                 .withTableName("item_table6")
-                .withLimit(5)
-                .withAttributesToGet("id", "numSold")
+                //.withLimit(5)
+                .withAttributesToGet(new String[]{"id","numSold"})
                 .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
         ScanResult result = client.scan(scanReq);
-        return result.getItems();
+        List<Map<String, AttributeValue>> itemList = result.getItems();
+        List<TopItemInfo> topInfo = new ArrayList<>();
+        for(Map<String, AttributeValue> i: itemList){
+            TopItemInfo ti = new TopItemInfo();
+            ti.setItemId(i.get("id").getS());
+            ti.setNumSold(Integer.parseInt(i.get("numSold").getN()));
+            topInfo.add(ti);
+        }
+        return topInfo;
     }
 
     public void save() {
@@ -135,5 +143,13 @@ public class Item {
         public void setReviewId(String reviewId) {
             this.reviewId = reviewId;
         }
+    }
+
+    @Data
+    public static class TopItemInfo{
+
+        private String itemId;
+        private int numSold;
+
     }
 }
