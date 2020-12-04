@@ -10,6 +10,7 @@ import com.serverless.ApiGatewayResponse;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -49,8 +50,15 @@ public class UpdateOrderHandler implements RequestHandler<Map<String, Object>, A
                         break;
                 }
             }
-            if(body.has("itemId")){
-                order.setItemId(body.get("itemId").asText());
+            if(body.has("items")&&body.get("items").isArray()){
+                ArrayList<Order.ItemInfo> items = new ArrayList<>();
+                for(JsonNode i : body.get("items")){
+                    Order.ItemInfo it = new Order.ItemInfo();
+                    it.setItemId(body.get("itemId").asText());
+                    it.setQuantity(body.get("quantity").asInt());
+                    items.add(it);
+                }
+                order.setItems(items);
             }
             //test setters to test get monthly orders
             if(body.has("placedDate")) {
