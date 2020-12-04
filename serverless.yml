@@ -91,7 +91,6 @@ functions:
       - http:
           path: /item/{itemId}
           method: get
-          cors: true
 
   updateItem:
     handler: ca.yorku.item.UpdateItemHandler
@@ -99,21 +98,19 @@ functions:
       - http:
           path: /item/{itemId}
           method: patch
-          cors: true
+
   deleteItem:
     handler: ca.yorku.item.DeleteItemHandler
     events:
       - http:
           path: /item/{itemId}
           method: delete
-          cors: true
   addItem:
     handler: ca.yorku.item.AddItemHandler
     events:
       - http:
           path: /item/new
           method: post
-          cors: true
 
 
   getOrder:
@@ -122,7 +119,6 @@ functions:
       - http:
           path: /order/{orderId}
           method: get
-          cors: true
 
   updateOrder:
     handler: ca.yorku.order.UpdateOrderHandler
@@ -130,21 +126,18 @@ functions:
       - http:
           path: /order/{orderId}
           method: patch
-          cors: true
   deleteOrder:
     handler: ca.yorku.order.DeleteOrderHandler
     events:
       - http:
           path: /order/{orderId}
           method: delete
-          cors: true
   addOrder:
     handler: ca.yorku.order.AddOrderHandler
     events:
       - http:
           path: /order/new
           method: post
-          cors: true
 
   getReview:
     handler: ca.yorku.review.GetReviewHandler
@@ -152,7 +145,6 @@ functions:
       - http:
           path: /review/{reviewId}
           method: get
-          cors: true
 
   updateReview:
     handler: ca.yorku.review.UpdateReviewHandler
@@ -160,21 +152,18 @@ functions:
       - http:
           path: /review/{reviewId}
           method: patch
-          cors: true
   deleteReview:
     handler: ca.yorku.review.DeleteReviewHandler
     events:
       - http:
           path: /review/{reviewId}
           method: delete
-          cors: true
   addReview:
     handler: ca.yorku.review.AddReviewHandler
     events:
       - http:
           path: /review/new
           method: post
-          cors: true
 
 
   addCategory:
@@ -183,7 +172,6 @@ functions:
       - http:
           path: /category/new
           method: post
-          cors: true
 
   searchItemsByCategory:
     handler: ca.yorku.search.SearchItemsByCategory
@@ -191,14 +179,12 @@ functions:
       - http:
           path: /category/{categoryId}/items
           method: get
-          cors: true
   searchOrdersByItem:
     handler: ca.yorku.search.SearchOrdersByItem
     events:
       - http:
           path: /item/{itemId}/orders
           method: get
-          cors: true
 
   getMonthlyReport:
     handler: ca.yorku.analytics.MonthlyReportHandler
@@ -206,7 +192,6 @@ functions:
       - http:
           path: /analytics/report/{date-month}
           method: get
-          cors: true
 
   getTop10Report:
     handler: ca.yorku.analytics.GetTop10Report
@@ -214,7 +199,6 @@ functions:
       - http:
           path: /analytics/report/top10
           method: get
-          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
