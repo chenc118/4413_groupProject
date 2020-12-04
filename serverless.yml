@@ -190,8 +190,8 @@ functions:
     handler: ca.yorku.analytics.MonthlyReportHandler
     events:
       - http:
-        path: /analytics/report/{date-month}
-        method: get
+          path: /analytics/report/{date-month}
+          method: get
 
   getTop10Report:
     handler: ca.yorku.analytics.GetTop10Report
