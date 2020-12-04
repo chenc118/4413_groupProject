@@ -244,7 +244,7 @@ resources:
     productsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: products_table
+        TableName: products_table2
         AttributeDefinitions:
           - AttributeName: productId
             AttributeType: S
@@ -262,7 +262,7 @@ resources:
     itemsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: item_table6
+        TableName: item_table7
         AttributeDefinitions:
           - AttributeName: itemId
             AttributeType: S
@@ -291,7 +291,7 @@ resources:
     categoryTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: categories_table2
+        TableName: categories_table3
         AttributeDefinitions:
           - AttributeName: categoryId
             AttributeType: S
@@ -305,7 +305,7 @@ resources:
     orderTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: orders_table5
+        TableName: orders_table6
         AttributeDefinitions:
           - AttributeName: orderId
             AttributeType: S
@@ -346,7 +346,7 @@ resources:
     reviewTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: reviews_table
+        TableName: reviews_table2
         AttributeDefinitions:
           - AttributeName: reviewId
             AttributeType: S
