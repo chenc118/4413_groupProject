@@ -3,14 +3,18 @@ package ca.yorku.dal;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ReturnConsumedCapacity;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.serverless.dal.DynamoDBAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "item_table5")
+@DynamoDBTable(tableName = "item_table6")
 public class Item {
 
     private static DynamoDBAdapter db_adapter;
@@ -121,11 +125,14 @@ public class Item {
         return itemList;
     }
 
-    public List<Item> getAll(){
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withLimit(1);
-        PaginatedScanList<Item> result = mapper.scan(Item.class, scanExpression);
-        return result;
+    public List<Map<String, AttributeValue>> getAll(){
+        ScanRequest scanReq = new ScanRequest()
+                .withTableName("item_table6")
+                .withLimit(5)
+                .withAttributesToGet(new String[]{"id","numSold"})
+                .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
+        ScanResult result = client.scan(scanReq);
+        return result.getItems();
     }
     public void save(){
         mapper.save(this);

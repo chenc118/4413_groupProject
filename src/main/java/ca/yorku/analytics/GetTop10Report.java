@@ -1,6 +1,7 @@
 package ca.yorku.analytics;
 
 import ca.yorku.dal.Item;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.serverless.ApiGatewayResponse;
@@ -14,23 +15,20 @@ public class GetTop10Report implements RequestHandler<Map<String, Object>, ApiGa
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-        List<Item> allItems = new Item().getAll();
-        PriorityQueue<Item> top = new PriorityQueue<>(Comparator.comparingInt(Item::getNumSold));
-        for(Item i:allItems){
-            logger.info("Item scan: "+i.getId());
+        List<Map<String, AttributeValue>> allItems = new Item().getAll();
+        PriorityQueue<Map<String, AttributeValue>> top = new PriorityQueue<>(
+                Comparator.comparingInt(o -> Integer.parseInt(o.get("numSold").getS())));
+        for(Map<String, AttributeValue> i:allItems){
+            logger.info("Item scan: "+i.get("id").getS()+" num "+i.get("numSold").getS());
             top.offer(i);
             if(top.size()>10){
                 top.poll();
             }
         }
         logger.info("Iter Done");
-        ArrayList<Item> top10 = new ArrayList<Item>();
-        for(Item i:top){
-            top10.add(i);
-        }
         return ApiGatewayResponse.builder()
                 .setStatusCode(200)
-                .setObjectBody(top10)
+                .setObjectBody(top)
                 .build();
     }
 }
