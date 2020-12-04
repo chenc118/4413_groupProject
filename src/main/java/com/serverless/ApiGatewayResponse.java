@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -64,6 +66,14 @@ public class ApiGatewayResponse {
 		private Object objectBody;
 		private byte[] binaryBody;
 		private boolean base64Encoded;
+
+
+		public Builder(){
+			//Serialize dates as ISO dates
+			objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+			// StdDateFormat is ISO8601 since jackson 2.9
+			objectMapper.setDateFormat(new StdDateFormat().withColonInTimeZone(true));
+		}
 
 		public Builder setStatusCode(int statusCode) {
 			this.statusCode = statusCode;
