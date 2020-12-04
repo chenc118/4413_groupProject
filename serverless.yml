@@ -180,12 +180,12 @@ functions:
 #          path: /user/{userId}
 #          method: patch
 #
-#  deleteUser:
-#    handler: ca.yorku.user.DeleteUserHandler
-#    events:
-#      - http:
-#          path: /user/{userId}
-#          method: delete
+  deleteUser:
+    handler: ca.yorku.user.DeleteUserHandler
+    events:
+      - http:
+          path: /user/{userId}
+          method: delete
 
   addUser:
     handler: ca.yorku.user.AddUserHandler
@@ -229,12 +229,12 @@ functions:
           path: /item/{itemId}/orders
           method: get
 
-#  getMonthlyReport:
-#    handler: ca.yorku.analytics.MonthlyReportHandler
-#    events:
-#      - http:
-#          path: /analytics/report/{year-month}
-#          method: get
+  getMonthlyReport:
+    handler: ca.yorku.analytics.MonthlyReportHandler
+    events:
+      - http:
+          path: /analytics/report/{year-month}
+          method: get
 
   getTop10Report:
     handler: ca.yorku.analytics.GetTop10Report
