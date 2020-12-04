@@ -9,6 +9,8 @@ import com.serverless.ApiGatewayResponse;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -37,14 +39,31 @@ public class UpdateOrderHandler implements RequestHandler<Map<String, Object>, A
                 switch(body.get("status").asText().toLowerCase()){
                     case "placed": order.setStatus(Order.Status.Placed);
                         break;
-                    case "delivered": order.setStatus(Order.Status.Delivered);
+                    case "delivered":
+                        order.setStatus(Order.Status.Delivered);
+                        //order.setDeliveredDate(new Date());
                         break;
-                    case "shipped": order.setStatus(Order.Status.Shipped);
+                    case "shipped":
+                        order.setStatus(Order.Status.Shipped);
+                        //order.setShippedDate(new Date());
                         break;
                 }
             }
             if(body.has("itemId")){
                 order.setItemId(body.get("itemId").asText());
+            }
+            //test setters to test get monthly orders
+            if(body.has("placedDate")) {
+                order.setPlacedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                        .parse(body.get("placedDate").asText()));
+            }
+            if(body.has("shippedDate")) {
+                order.setPlacedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                        .parse(body.get("shippedDate").asText()));
+            }
+            if(body.has("deliveredDate")) {
+                order.setPlacedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                        .parse(body.get("delieveredDate").asText()));
             }
             order.save();
 

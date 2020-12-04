@@ -28,6 +28,10 @@ public class Order {
     @DynamoDBAttribute
     private Date placedDate;
     @DynamoDBAttribute
+    private Date shippedDate;
+    @DynamoDBAttribute
+    private Date deliveredDate;
+    @DynamoDBAttribute
     @DynamoDBTypeConvertedEnum
     private Status status;
     @DynamoDBAttribute
@@ -49,6 +53,22 @@ public class Order {
 
     public void setPlacedDate(Date placedDate) {
         this.placedDate = placedDate;
+    }
+
+    public Date getShippedDate() {
+        return shippedDate;
+    }
+
+    public void setShippedDate(Date shippedDate) {
+        this.shippedDate = shippedDate;
+    }
+
+    public Date getDeliveredDate() {
+        return deliveredDate;
+    }
+
+    public void setDeliveredDate(Date deliveredDate) {
+        this.deliveredDate = deliveredDate;
     }
 
     public Status getStatus() {
