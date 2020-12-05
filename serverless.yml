@@ -266,24 +266,6 @@ functions:
 #      variable2: value2
 resources:
   Resources:
-    productsTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: products_table2
-        AttributeDefinitions:
-          - AttributeName: productId
-            AttributeType: S
-          - AttributeName: name
-            AttributeType: S
-        KeySchema:
-          - AttributeName: productId
-            KeyType: HASH
-          - AttributeName: name
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-
     itemsTable:
       Type: AWS::DynamoDB::Table
       Properties:

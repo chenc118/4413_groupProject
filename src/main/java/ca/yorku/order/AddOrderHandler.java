@@ -29,8 +29,6 @@ public class AddOrderHandler implements RequestHandler<Map<String, Object>, ApiG
 
             Order newOrder = new Order();
             newOrder.setPlacedDate(new Date());
-//            newOrder.setPlacedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-//                    .parse(body.get("placedDate").asText()));
             if(body.has("comment")) {
                 newOrder.setComment(body.get("comment").asText());
             }
