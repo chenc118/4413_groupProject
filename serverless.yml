@@ -229,6 +229,13 @@ functions:
           path: /item/{itemId}/orders
           method: get
 
+  searchItemByName:
+    handler: ca.yorku.search.SearchItemByName
+    events:
+      - http:
+          path: /item/name/{itemName}
+          method: get
+
   getMonthlyReport:
     handler: ca.yorku.analytics.MonthlyReportHandler
     events:
