@@ -64,7 +64,7 @@ public class UpdateUserHandler implements RequestHandler<Map<String, Object>, Ap
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);
-            logger.severe("Error in saving user: " + ex + sw.toString());
+            logger.severe("Error in updating user: " + ex + sw.toString());
 
             return ApiGatewayResponse.builder()
                     .setStatusCode(400)
