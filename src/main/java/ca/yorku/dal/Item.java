@@ -135,7 +135,7 @@ public class Item {
 
         ScanRequest scanReq = new ScanRequest()
                 .withTableName("item_table7")
-                .withAttributesToGet("itemId")
+                //.withAttributesToGet("itemId")
                 .withFilterExpression("contains(name,:n")
                 .withExpressionAttributeValues(av);
         ScanResult result = client.scan(scanReq);
