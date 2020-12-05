@@ -1,5 +1,6 @@
 package ca.yorku.order;
 
+import ca.yorku.dal.Item;
 import ca.yorku.dal.Order;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -40,6 +41,9 @@ public class AddOrderHandler implements RequestHandler<Map<String, Object>, ApiG
                     it.setItemId(i.get("itemId").asText());
                     it.setQuantity(i.get("quantity").asInt());
                     items.add(it);
+                    Item item = new Item().get(it.getItemId());
+                    item.setNumSold(item.getNumSold()+ it.getQuantity());
+                    item.save();
                 }
                 newOrder.setItems(items);
             }
