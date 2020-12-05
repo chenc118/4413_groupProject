@@ -229,6 +229,13 @@ functions:
           path: /item/{itemId}/orders
           method: get
 
+  searchItemByName:
+    handler: ca.yorku.search.SearchItemsByName
+    events:
+      - http:
+          path: /item/name/{itemName}
+          method: get
+
   getMonthlyReport:
     handler: ca.yorku.analytics.MonthlyReportHandler
     events:
@@ -412,6 +419,20 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+
+#    sessionTable:
+#      Type: AWS::DynamoDB::Table
+#      Properties:
+#        TableName: session_table
+#        AttributeDefinitions:
+#          - AttributeName: sessionId
+#            AttributeType: S
+#        KeySchema:
+#          - AttributeName: sessionId
+#            KeyType: HASH
+#        ProvisionedThroughput:
+#          ReadCapacityUnits: 1
+#          WriteCapacityUnits: 1
 
 
 # you can add CloudFormation resource templates here
