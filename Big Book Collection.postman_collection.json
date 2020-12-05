@@ -1,0 +1,4047 @@
+{
+	"info": {
+		"_postman_id": "520efdc5-0c4d-4ab7-aeaa-6b37777ced79",
+		"name": "Big Book Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "analytics/report",
+			"item": [
+				{
+					"name": "Get a monthly analytics report",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "useBrowser",
+									"value": true,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/analytics/report/:date-month",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"analytics",
+								"report",
+								":date-month"
+							],
+							"variable": [
+								{
+									"key": "date-month",
+									"value": "{{2020-12}}",
+									"type": "string",
+									"description": "(Required) YYYY-MM"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Invalid date-month",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/report/:date-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"report",
+										":date-month"
+									],
+									"variable": [
+										{
+											"key": "date-month"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/report/:date-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"report",
+										":date-month"
+									],
+									"variable": [
+										{
+											"key": "date-month"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"itemId\": -1661959,\n  \"numSold\": 46215104\n },\n {\n  \"itemId\": -59306540,\n  \"numSold\": 11708162\n }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get a lifetime top 10 analytics report",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f247c41d-fc85-4cb5-a3ac-c9ff2eda255c",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"isJson\", function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/analytics/report/top10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"analytics",
+								"report",
+								"top10"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: apikey",
+											"type": "text/plain"
+										},
+										"key": "X-API-Key",
+										"value": "<API Key>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/report/top10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"report",
+										"top10"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"itemId\": 18751499\n },\n {\n  \"itemId\": 96530493\n }\n]"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "{category Id}",
+					"item": [
+						{
+							"name": "Get an existing category",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "key",
+											"value": "X-API-Key",
+											"type": "string"
+										},
+										{
+											"key": "value",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/category/:categoryId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										":categoryId"
+									],
+									"variable": [
+										{
+											"id": "ffe7d9f1-b040-4f5f-9d5f-4eaef55ef7cc",
+											"key": "categoryId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Invalid category ID",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"categoryId\": 10356516,\n \"name\": \"consequat\"\n}"
+								},
+								{
+									"name": "Category not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete an existing category",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/category/:categoryId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										":categoryId"
+									],
+									"variable": [
+										{
+											"id": "297bb675-2161-473e-a98b-873d206897f3",
+											"key": "categoryId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Category not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Invalid category ID",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Update an existing category",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryId\": \"<uuid>\",\n    \"name\": \"<string>\"\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/category/:categoryId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										":categoryId"
+									],
+									"variable": [
+										{
+											"id": "6e7f0677-cf9c-4453-bbe2-9745aa17fc08",
+											"key": "categoryId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"categoryId\": \"<uuid>\",\n \"name\": \"<string>\"\n}"
+								},
+								{
+									"name": "Invalid category ID or data",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Category not found",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Search for items by category ID",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "key",
+											"value": "X-API-Key",
+											"type": "string"
+										},
+										{
+											"key": "value",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/category/:categoryId/items",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										":categoryId",
+										"items"
+									],
+									"variable": [
+										{
+											"id": "cbc8adf4-b395-4746-85de-a9559e924f19",
+											"key": "categoryId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Multiple category IDs can be provided as a comma-separated string"
+							},
+							"response": [
+								{
+									"name": "Category not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId/items",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId",
+												"items"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId/items",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId",
+												"items"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n {\n  \"itemId\": 35278518,\n  \"quantity\": 76934450\n },\n {\n  \"itemId\": -30066273,\n  \"quantity\": 4287914\n }\n]"
+								},
+								{
+									"name": "Invalid category ID",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/category/:categoryId/items",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"category",
+												":categoryId",
+												"items"
+											],
+											"variable": [
+												{
+													"key": "categoryId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add a new category",
+					"request": {
+						"auth": {
+							"type": "oauth2"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryId\": \"<uuid>\",\n    \"name\": \"<string>\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/category/new",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								"new"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/category/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										"new"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"categoryId\": \"<uuid>\",\n \"name\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/category/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										"new"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "item",
+			"item": [
+				{
+					"name": "{item Id}",
+					"item": [
+						{
+							"name": "Get an existing item",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "key",
+											"value": "X-API-Key",
+											"type": "string"
+										},
+										{
+											"key": "value",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/item/:itemId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"item",
+										":itemId"
+									],
+									"variable": [
+										{
+											"id": "9b19321b-a269-49b7-8706-f252d7852bb9",
+											"key": "itemId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"itemId\": 13326586,\n \"categoryId\": -63995744,\n \"price\": 46422277.99627414,\n \"name\": \"proident reprehenderit cillum\",\n \"numSold\": 89184518,\n \"quantity\": 34205967,\n \"reviews\": [\n  {\n   \"reviewId\": -58689301\n  },\n  {\n   \"reviewId\": -42696058\n  }\n ],\n \"soldBy\": -28916729.55379519\n}"
+								},
+								{
+									"name": "Item not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Invalid item ID",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete an existing item",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "key",
+											"value": "X-API-Key",
+											"type": "string"
+										},
+										{
+											"key": "value",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/item/:itemId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"item",
+										":itemId"
+									],
+									"variable": [
+										{
+											"id": "5a62501c-41dc-443f-92e9-4d4a30ec0174",
+											"key": "itemId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Invalid item ID",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Item not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Update an existing item",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "key",
+											"value": "X-API-Key",
+											"type": "string"
+										},
+										{
+											"key": "value",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"itemId\": \"<uuid>\",\n    \"categoryId\": \"<uuid>\",\n    \"price\": \"<number>\",\n    \"name\": \"<string>\",\n    \"numSold\": \"<integer>\",\n    \"quantity\": \"<integer>\",\n    \"reviews\": [\n        {\n            \"reviewId\": \"<uuid>\"\n        },\n        {\n            \"reviewId\": \"<uuid>\"\n        }\n    ],\n    \"soldBy\": \"<uuid>\"\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/item/:itemId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"item",
+										":itemId"
+									],
+									"variable": [
+										{
+											"id": "3f61af0d-964e-4423-a27d-0769f2d7cb67",
+											"key": "itemId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Invalid item ID or data",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"itemId\": \"<uuid>\",\n \"categoryId\": \"<uuid>\",\n \"price\": \"<number>\",\n \"name\": \"<string>\",\n \"numSold\": \"<integer>\",\n \"quantity\": \"<integer>\",\n \"reviews\": [\n  {\n   \"reviewId\": \"<uuid>\"\n  },\n  {\n   \"reviewId\": \"<uuid>\"\n  }\n ],\n \"soldBy\": \"<uuid>\"\n}"
+								},
+								{
+									"name": "Item not found",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Search for orders by item ID",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "key",
+											"value": "X-API-Key",
+											"type": "string"
+										},
+										{
+											"key": "value",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/item/:itemId/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"item",
+										":itemId",
+										"orders"
+									],
+									"variable": [
+										{
+											"id": "4c9085c5-d896-455a-9bc6-230400cb7c3d",
+											"key": "itemId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Invalid item ID",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId/orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId",
+												"orders"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId/orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId",
+												"orders"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n {\n  \"orderId\": 64369162\n },\n {\n  \"orderId\": 82675126\n }\n]"
+								},
+								{
+									"name": "Item not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/item/:itemId/orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"item",
+												":itemId",
+												"orders"
+											],
+											"variable": [
+												{
+													"key": "itemId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add a new item",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"itemId\": \"<uuid>\",\n    \"categoryId\": \"<uuid>\",\n    \"price\": \"<number>\",\n    \"name\": \"<string>\",\n    \"numSold\": \"<integer>\",\n    \"quantity\": \"<integer>\",\n    \"reviews\": [\n        {\n            \"reviewId\": \"<uuid>\"\n        },\n        {\n            \"reviewId\": \"<uuid>\"\n        }\n    ],\n    \"soldBy\": \"<uuid>\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/item/new",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"item",
+								"new"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: apikey",
+											"type": "text/plain"
+										},
+										"key": "X-API-Key",
+										"value": "<API Key>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/item/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"item",
+										"new"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"itemId\": \"<uuid>\",\n \"categoryId\": \"<uuid>\",\n \"price\": \"<number>\",\n \"name\": \"<string>\",\n \"numSold\": \"<integer>\",\n \"quantity\": \"<integer>\",\n \"reviews\": [\n  {\n   \"reviewId\": \"<uuid>\"\n  },\n  {\n   \"reviewId\": \"<uuid>\"\n  }\n ],\n \"soldBy\": \"<uuid>\"\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: apikey",
+											"type": "text/plain"
+										},
+										"key": "X-API-Key",
+										"value": "<API Key>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/item/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"item",
+										"new"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "{order Id}",
+					"item": [
+						{
+							"name": "Get an existing order",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/order/:orderId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"order",
+										":orderId"
+									],
+									"variable": [
+										{
+											"id": "9699da1e-c64d-49ff-a06c-6e61e03cd40f",
+											"key": "orderId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/order/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"order",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"orderId\": -55776441,\n \"userId\": 73233501,\n \"items\": [\n  {\n   \"itemId\": -72391254,\n   \"quantity\": 85267132\n  },\n  {\n   \"itemId\": 79906114,\n   \"quantity\": 72159525\n  }\n ],\n \"placedDate\": \"1997-04-08T22:01:55.902Z\",\n \"shippedDate\": \"1969-01-19T16:39:54.935Z\",\n \"deliveredDate\": \"1953-07-01T09:27:21.567Z\",\n \"status\": \"shipped\",\n \"comment\": \"consequat aute\"\n}"
+								},
+								{
+									"name": "Order not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/order/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"order",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Invalid order ID",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/order/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"order",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete an existing order",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/order/:orderId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"order",
+										":orderId"
+									],
+									"variable": [
+										{
+											"id": "79bbe42c-b08c-49d7-a65b-5ceccd88a0a6",
+											"key": "orderId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Invalid order ID",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/order/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"order",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/order/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"order",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Order not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/order/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"order",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Update an existing order",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"orderId\": \"<uuid>\",\n    \"userId\": \"<uuid>\",\n    \"items\": [\n        {\n            \"itemId\": 90491870,\n            \"quantity\": 90365996\n        },\n        {\n            \"itemId\": -27882090,\n            \"quantity\": 37916073\n        }\n    ],\n    \"placedDate\": \"<dateTime>\",\n    \"shippedDate\": \"<dateTime>\",\n    \"deliveredDate\": \"<dateTime>\",\n    \"status\": \"<string>\",\n    \"comment\": \"<string>\"\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/order/:orderId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"order",
+										":orderId"
+									],
+									"variable": [
+										{
+											"id": "173c7300-16a8-4c99-875c-6d8e5837a999",
+											"key": "orderId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Invalid order ID or data",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/order/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"order",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/order/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"order",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"orderId\": \"<uuid>\",\n \"userId\": \"<uuid>\",\n \"items\": [\n  {\n   \"itemId\": 15464285,\n   \"quantity\": 75201814\n  },\n  {\n   \"itemId\": -67143470,\n   \"quantity\": 93145676\n  }\n ],\n \"placedDate\": \"<dateTime>\",\n \"shippedDate\": \"<dateTime>\",\n \"deliveredDate\": \"<dateTime>\",\n \"status\": \"<string>\",\n \"comment\": \"<string>\"\n}"
+								},
+								{
+									"name": "Order not found",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/order/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"order",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add a new order",
+					"request": {
+						"auth": {
+							"type": "oauth2"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderId\": \"<uuid>\",\n    \"userId\": \"<uuid>\",\n    \"items\": [\n        {\n            \"itemId\": 90491870,\n            \"quantity\": 90365996\n        },\n        {\n            \"itemId\": -27882090,\n            \"quantity\": 37916073\n        }\n    ],\n    \"placedDate\": \"<dateTime>\",\n    \"shippedDate\": \"<dateTime>\",\n    \"deliveredDate\": \"<dateTime>\",\n    \"status\": \"<string>\",\n    \"comment\": \"<string>\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/order/new",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"order",
+								"new"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/order/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"order",
+										"new"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"orderId\": \"<uuid>\",\n \"userId\": \"<uuid>\",\n \"items\": [\n  {\n   \"itemId\": 15464285,\n   \"quantity\": 75201814\n  },\n  {\n   \"itemId\": -67143470,\n   \"quantity\": 93145676\n  }\n ],\n \"placedDate\": \"<dateTime>\",\n \"shippedDate\": \"<dateTime>\",\n \"deliveredDate\": \"<dateTime>\",\n \"status\": \"<string>\",\n \"comment\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/order/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"order",
+										"new"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "review",
+			"item": [
+				{
+					"name": "{review Id}",
+					"item": [
+						{
+							"name": "Get an existing review",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "key",
+											"value": "X-API-Key",
+											"type": "string"
+										},
+										{
+											"key": "value",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/review/:reviewId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"review",
+										":reviewId"
+									],
+									"variable": [
+										{
+											"id": "0ee2ee19-0677-4bae-a958-e81c6d7fbffe",
+											"key": "reviewId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Invalid review ID",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/review/:reviewId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"review",
+												":reviewId"
+											],
+											"variable": [
+												{
+													"key": "reviewId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/review/:reviewId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"review",
+												":reviewId"
+											],
+											"variable": [
+												{
+													"key": "reviewId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"reviewId\": 90369998,\n \"itemId\": -78189545,\n \"orderId\": -66348058,\n \"rating\": 1,\n \"title\": \"dolor sunt nulla aute\",\n \"content\": \"id in veniam\"\n}"
+								},
+								{
+									"name": "Review not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: apikey",
+													"type": "text/plain"
+												},
+												"key": "X-API-Key",
+												"value": "<API Key>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/review/:reviewId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"review",
+												":reviewId"
+											],
+											"variable": [
+												{
+													"key": "reviewId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete an existing review",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/review/:reviewId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"review",
+										":reviewId"
+									],
+									"variable": [
+										{
+											"id": "589b4215-8dcd-46fc-9d9d-7c153b95d4e8",
+											"key": "reviewId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/review/:reviewId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"review",
+												":reviewId"
+											],
+											"variable": [
+												{
+													"key": "reviewId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Review not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/review/:reviewId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"review",
+												":reviewId"
+											],
+											"variable": [
+												{
+													"key": "reviewId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Invalid review ID",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/review/:reviewId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"review",
+												":reviewId"
+											],
+											"variable": [
+												{
+													"key": "reviewId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Update an existing review",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"reviewId\": \"<uuid>\",\n    \"itemId\": \"<uuid>\",\n    \"orderId\": \"<uuid>\",\n    \"rating\": \"<integer>\",\n    \"title\": \"<string>\",\n    \"content\": \"<string>\"\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/review/:reviewId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"review",
+										":reviewId"
+									],
+									"variable": [
+										{
+											"id": "af5240b7-681e-4950-bad1-e204acfeb8ed",
+											"key": "reviewId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/review/:reviewId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"review",
+												":reviewId"
+											],
+											"variable": [
+												{
+													"key": "reviewId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"reviewId\": \"<uuid>\",\n \"itemId\": \"<uuid>\",\n \"orderId\": \"<uuid>\",\n \"rating\": \"<integer>\",\n \"title\": \"<string>\",\n \"content\": \"<string>\"\n}"
+								},
+								{
+									"name": "Invalid review ID or data",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/review/:reviewId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"review",
+												":reviewId"
+											],
+											"variable": [
+												{
+													"key": "reviewId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Review not found",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/review/:reviewId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"review",
+												":reviewId"
+											],
+											"variable": [
+												{
+													"key": "reviewId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add a new review for an item",
+					"request": {
+						"auth": {
+							"type": "oauth2"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reviewId\": \"<uuid>\",\n    \"itemId\": \"<uuid>\",\n    \"orderId\": \"<uuid>\",\n    \"rating\": \"<integer>\",\n    \"title\": \"<string>\",\n    \"content\": \"<string>\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/review/new",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"review",
+								"new"
+							]
+						},
+						"description": "Customer must order and receive an item before reviewing it"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/review/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"review",
+										"new"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"reviewId\": \"<uuid>\",\n \"itemId\": \"<uuid>\",\n \"orderId\": \"<uuid>\",\n \"rating\": \"<integer>\",\n \"title\": \"<string>\",\n \"content\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/review/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"review",
+										"new"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "{user Id}",
+					"item": [
+						{
+							"name": "Get an existing user",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/user/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										":userId"
+									],
+									"variable": [
+										{
+											"id": "3fa1db7a-cb4e-4a15-a5ef-b3677e584426",
+											"key": "userId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "User not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:userId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "userId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:userId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "userId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"userId\": -78866963,\n \"firstName\": \"occaecat\",\n \"lastName\": \"consectetur quis\",\n \"email\": \"dolor\",\n \"password\": \"voluptate veniam\",\n \"phone\": \"ipsum occaecat\"\n}"
+								},
+								{
+									"name": "Invalid user ID",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:userId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "userId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete an existing user",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/user/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										":userId"
+									],
+									"variable": [
+										{
+											"id": "a0549ec5-b354-4be6-bf04-2752368ee89a",
+											"key": "userId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:userId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "userId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Invalid user ID",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:userId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "userId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "User not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:userId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "userId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Update an existing user",
+							"request": {
+								"auth": {
+									"type": "oauth2"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"<uuid>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<string>\",\n    \"password\": \"<string>\",\n    \"phone\": \"<string>\"\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										":userId"
+									],
+									"variable": [
+										{
+											"id": "0662a88c-f5a2-4674-bcec-8e8724492c42",
+											"key": "userId",
+											"value": "<uuid>",
+											"type": "string",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Invalid user ID or data",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:userId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "userId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "User not found",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:userId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "userId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"description": {
+													"content": "Added as a part of security scheme: oauth2",
+													"type": "text/plain"
+												},
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:userId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "userId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"userId\": \"<uuid>\",\n \"firstName\": \"<string>\",\n \"lastName\": \"<string>\",\n \"email\": \"<string>\",\n \"password\": \"<string>\",\n \"phone\": \"<string>\"\n}"
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add a new user",
+					"request": {
+						"auth": {
+							"type": "oauth2"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"<uuid>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<string>\",\n    \"password\": \"<string>\",\n    \"phone\": \"<string>\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/new",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"new"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"new"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"userId\": \"<uuid>\",\n \"firstName\": \"<string>\",\n \"lastName\": \"<string>\",\n \"email\": \"<string>\",\n \"password\": \"<string>\",\n \"phone\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/new",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"new"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Log in a user",
+					"request": {
+						"auth": {
+							"type": "oauth2"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"<string>\",\n    \"password\": \"<string>\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Invalid email or password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Redirect after login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "See Other",
+							"code": 303,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Log out a user's session",
+					"request": {
+						"auth": {
+							"type": "oauth2"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/user/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Redirect after logout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"logout"
+									]
+								}
+							},
+							"status": "See Other",
+							"code": 303,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Not logged in",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: oauth2",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"logout"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Search for items by name",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/items/name/:itemName",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"items",
+						"name",
+						":itemName"
+					],
+					"variable": [
+						{
+							"id": "d2210372-7584-48b4-acc9-343fde85cc0d",
+							"key": "itemName",
+							"value": "<string>",
+							"type": "string",
+							"description": "(Required) "
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": {
+									"content": "Added as a part of security scheme: apikey",
+									"type": "text/plain"
+								},
+								"key": "X-API-Key",
+								"value": "<API Key>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/items/name/:itemName",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"items",
+								"name",
+								":itemName"
+							],
+							"variable": [
+								{
+									"key": "itemName"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n {\n  \"itemId\": -47640263,\n  \"quantity\": 1961024\n },\n {\n  \"itemId\": 72909382,\n  \"quantity\": 32968679\n }\n]"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "812166ba-e7b3-4346-bb3b-0144b1d12071",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3bfecf5e-4a3c-4260-811e-3707da52ffd5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "33dc67b2-ce4f-44a4-a270-180a8db56536",
+			"key": "baseUrl",
+			"value": "https://rfwy1ua5al.execute-api.us-east-1.amazonaws.com/dev/"
+		},
+		{
+			"id": "23b68e54-48b4-4536-860b-1bd2fe1edbb0",
+			"key": "2020-12",
+			"value": "<date>"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
