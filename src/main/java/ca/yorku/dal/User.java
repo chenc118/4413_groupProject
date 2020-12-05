@@ -47,6 +47,15 @@ public class User {
     @DynamoDBAttribute
     @Getter
     @Setter
+    private String cognitoIdentity;
+    @DynamoDBAttribute
+    @Getter
+    @Setter
+    private UserGroup group;
+    @DynamoDBAttribute
+    @DynamoDBTypeConvertedEnum
+    @Getter
+    @Setter
     private String phone;
 
     public User() {
@@ -89,5 +98,11 @@ public class User {
             return true;
         }
         return false;
+    }
+    public enum UserGroup{
+        Visitor,
+        Customer,
+        Partner,
+        Admin
     }
 }

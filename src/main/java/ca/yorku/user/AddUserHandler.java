@@ -31,6 +31,12 @@ public class AddUserHandler implements RequestHandler<Map<String, Object>, ApiGa
             if (body.has("phone")) {
                 newUser.setPhone(body.get("phone").asText());
             }
+            //Likely need another endpoint to update group to higher privledges
+            newUser.setGroup(User.UserGroup.Customer);
+            if(body.has("identity")){
+                newUser.setCognitoIdentity(body.get("identity").asText());
+            }
+
             newUser.save();
             return ApiGatewayResponse.builder()
                     .setStatusCode(201)
