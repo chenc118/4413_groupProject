@@ -156,6 +156,15 @@ public class Item {
         mapper.save(this);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+        Item i = (Item)o;
+        return getItemId().equals(i.getItemId());
+    }
+
     @DynamoDBIgnore
     public boolean delete(String itemId) {
         Item item = get(itemId);
