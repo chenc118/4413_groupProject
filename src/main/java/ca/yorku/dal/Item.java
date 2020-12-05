@@ -132,13 +132,15 @@ public class Item {
     public List<ItemId> itemByName(String name){
         Map<String, AttributeValue> av = new HashMap<>();
         av.put(":n", new AttributeValue().withS(name));
-        av.put("#name", new AttributeValue().withS("name"));
+        Map<String, String> an = new HashMap<>();
+        an.put("#name", "name");
 
         ScanRequest scanReq = new ScanRequest()
                 .withTableName("item_table7")
                 //.withAttributesToGet("itemId")
                 .withFilterExpression("contains(#name,:n)")
-                .withExpressionAttributeValues(av);
+                .withExpressionAttributeValues(av)
+                .withExpressionAttributeNames(an);
 
         ScanResult result = client.scan(scanReq);
         List<Map<String,AttributeValue>> itemList = result.getItems();
