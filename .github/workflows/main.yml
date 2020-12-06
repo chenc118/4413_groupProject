@@ -31,11 +31,11 @@ jobs:
         # or if using AWS credentials directly
        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    - name: postman testing
-      uses: anthonyvscode/newman-action@v1
-      with:
-        collection: Big Book Collection.postman_collection.json
-        reporters: cli
-    - name: output postman summary
-      run: echo ${{ steps.run-newman.outputs.summary }}
+#     - name: postman testing
+#       uses: anthonyvscode/newman-action@v1
+#       with:
+#         collection: Big Book Collection.postman_collection.json
+#         reporters: cli
+#     - name: output postman summary
+#       run: echo ${{ steps.run-newman.outputs.summary }}
       
