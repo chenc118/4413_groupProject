@@ -32,8 +32,8 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             if (body.has("price")) {
                 newItem.setPrice(body.get("price").asDouble());
             }
-            if (body.has("quantity")) {
-                newItem.setQuantity(body.get("quantity").asLong());
+            if (body.has("quantityForSale")) {
+                newItem.setQuantityForSale(body.get("quantityForSale").asLong());
             }
             if (body.has("numSold")) {
                 newItem.setNumSold(body.get("numSold").asInt());
@@ -49,6 +49,12 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
                     reviewList.add(r);
                 }
                 newItem.setReviews(reviewList);
+            }
+            if(body.has("image")){
+                newItem.setImage(body.get("image").asText());
+            }
+            if(body.has("description")){
+                newItem.setDescription(body.get("description").asText());
             }
             newItem.save();
             return ApiGatewayResponse.builder()

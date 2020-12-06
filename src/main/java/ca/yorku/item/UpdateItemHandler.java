@@ -42,8 +42,8 @@ public class UpdateItemHandler implements RequestHandler<Map<String, Object>, Ap
             if (body.has("price")) {
                 item.setPrice(body.get("price").asDouble());
             }
-            if (body.has("quantity")) {
-                item.setQuantity(body.get("quantity").asLong());
+            if (body.has("quantityForSale")) {
+                item.setQuantityForSale(body.get("quantityForSale").asLong());
             }
             if (body.has("numSold")) {
                 item.setNumSold(body.get("numSold").asInt());
@@ -59,6 +59,12 @@ public class UpdateItemHandler implements RequestHandler<Map<String, Object>, Ap
                     reviewList.add(r);
                 }
                 item.setReviews(reviewList);
+            }
+            if(body.has("image")){
+                item.setImage(body.get("image").asText());
+            }
+            if(body.has("description")){
+                item.setDescription(body.get("description").asText());
             }
             item.save();
 

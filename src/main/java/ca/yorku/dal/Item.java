@@ -7,6 +7,7 @@ import com.amazonaws.services.dynamodbv2.model.ReturnConsumedCapacity;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,7 +41,7 @@ public class Item {
     @DynamoDBAttribute
     @Getter
     @Setter
-    private long quantity;
+    private long quantityForSale;
     @DynamoDBIndexHashKey(globalSecondaryIndexName = "CategoryIndex")
     @Getter
     @Setter
@@ -53,6 +54,14 @@ public class Item {
     @Getter
     @Setter
     private int numSold;
+    @DynamoDBAttribute
+    @Setter
+    @Getter
+    private String image;
+    @DynamoDBAttribute
+    @Setter
+    @Getter
+    private String description;
     @DynamoDBAttribute
     @Getter
     @Setter
