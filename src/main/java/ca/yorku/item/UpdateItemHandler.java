@@ -36,8 +36,8 @@ public class UpdateItemHandler implements RequestHandler<Map<String, Object>, Ap
             if (body.has("name")) {
                 item.setName(body.get("name").asText());
             }
-            if (body.has("category")) {
-                item.setCategory(body.get("category").asText());
+            if (body.has("categoryId")) {
+                item.setCategoryId(body.get("categoryId").asText());
             }
             if (body.has("price")) {
                 item.setPrice(body.get("price").asDouble());

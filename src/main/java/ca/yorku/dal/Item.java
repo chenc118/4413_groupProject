@@ -45,7 +45,7 @@ public class Item {
     @DynamoDBIndexHashKey(globalSecondaryIndexName = "CategoryIndex")
     @Getter
     @Setter
-    private String category;
+    private String categoryId;
     @DynamoDBAttribute
     @Getter
     @Setter

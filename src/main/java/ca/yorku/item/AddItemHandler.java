@@ -27,7 +27,7 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
             Item newItem = new Item();
-            newItem.setCategory(body.get("category").asText());
+            newItem.setCategoryId(body.get("categoryId").asText());
             newItem.setName(body.get("name").asText());
             if (body.has("price")) {
                 newItem.setPrice(body.get("price").asDouble());
