@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@DynamoDBTable(tableName = "item_table7")
+@DynamoDBTable(tableName = "item_table8")
 public class Item {
 
     private final AmazonDynamoDB client;
@@ -106,7 +106,7 @@ public class Item {
         DynamoDBQueryExpression<Item> queryExp = new DynamoDBQueryExpression<Item>()
                 .withIndexName("CategoryIndex")
                 .withConsistentRead(false)
-                .withKeyConditionExpression("category = :v1")
+                .withKeyConditionExpression("categoryId = :v1")
                 .withExpressionAttributeValues(av);
 
         List<Item> result = this.mapper.query(Item.class, queryExp);
@@ -121,7 +121,7 @@ public class Item {
     @DynamoDBIgnore
     public List<TopItemInfo> topItems() {
         ScanRequest scanReq = new ScanRequest()
-                .withTableName("item_table7")
+                .withTableName("item_table8")
                 //.withLimit(5)
                 .withAttributesToGet("itemId", "numSold")
                 .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
@@ -145,7 +145,7 @@ public class Item {
         an.put("#name", "name");
 
         ScanRequest scanReq = new ScanRequest()
-                .withTableName("item_table7")
+                .withTableName("item_table8")
                 //.withAttributesToGet("itemId")
                 .withFilterExpression("contains(#name,:n)")
                 .withExpressionAttributeValues(av)

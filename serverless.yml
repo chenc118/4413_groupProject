@@ -190,6 +190,31 @@ functions:
       - http:
           path: /category/new
           method: post
+  deleteCategory:
+    handler: ca.yorku.category.DeleteCategoryHandler
+    events:
+      - http:
+          path: /category/{categoryId}
+          method: delete
+  updateCategory:
+    handler: ca.yorku.UpdateCategoryHandler
+    events:
+      - http:
+          path: /category/{categoryId}
+          method: patch
+  getCategory:
+    handler: ca.yorku.GetCategoryHandler
+    events:
+      - http:
+          path: /category/{categoryId}
+          method: get
+
+  getAllCategories:
+    handler: ca.yorku.category.GetAllCategoriesHandler
+    events:
+      - http:
+          path: /categories
+          method: get
 
   searchItemsByCategory:
     handler: ca.yorku.search.SearchItemsByCategory
@@ -197,6 +222,7 @@ functions:
       - http:
           path: /category/{categoryId}/items
           method: get
+
   searchOrdersByItem:
     handler: ca.yorku.search.SearchOrdersByItem
     events:
@@ -269,13 +295,13 @@ resources:
     itemsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: item_table7
+        TableName: item_table8
         AttributeDefinitions:
           - AttributeName: itemId
             AttributeType: S
           - AttributeName: name
             AttributeType: S
-          - AttributeName: category
+          - AttributeName: categoryId
             AttributeType: S
         KeySchema:
           - AttributeName: itemId
@@ -285,7 +311,7 @@ resources:
         GlobalSecondaryIndexes:
           - IndexName: CategoryIndex
             KeySchema:
-              - AttributeName: category
+              - AttributeName: categoryId
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
