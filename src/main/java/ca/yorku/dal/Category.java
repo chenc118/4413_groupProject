@@ -3,10 +3,14 @@ package ca.yorku.dal;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ReturnConsumedCapacity;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +60,23 @@ public class Category {
             //logger.info("Products - get(): product - Not Found.");
         }
         return category;
+    }
+    @DynamoDBIgnore
+    public List<Category> listCategories(){
+        ScanRequest scanReq = new ScanRequest()
+                .withTableName("categories_table3")
+                .withAttributesToGet("categoryId", "name");
+
+        ScanResult result = client.scan(scanReq);
+        List<Map<String, AttributeValue>> itemList = result.getItems();
+        List<Category> categoryList = new ArrayList<>();
+        for(Map<String, AttributeValue> item: itemList){
+            Category cat = new Category();
+            cat.setCategoryId(item.get("categoryId").getS());
+            cat.setName(item.get("name").getS());
+            categoryList.add(cat);
+        }
+        return categoryList;
     }
 
     public void save() {
