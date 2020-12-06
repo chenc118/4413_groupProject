@@ -31,10 +31,6 @@ public class Review {
     @DynamoDBAttribute
     @Getter
     @Setter
-    private String orderId;
-    @DynamoDBAttribute
-    @Getter
-    @Setter
     private int rating;
     @DynamoDBAttribute
     @Getter

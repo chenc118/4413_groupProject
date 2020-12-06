@@ -26,9 +26,6 @@ public class AddReviewHandler implements RequestHandler<Map<String, Object>, Api
 
             Review newReview = new Review();
 
-            if(body.has("orderId")){
-                newReview.setOrderId(body.get("orderId").asText());
-            }
             if(body.has("itemId")){
                 newReview.setItemId(body.get("itemId").asText());
             }

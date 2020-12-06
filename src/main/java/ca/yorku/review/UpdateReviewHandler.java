@@ -32,9 +32,6 @@ public class UpdateReviewHandler implements RequestHandler<Map<String, Object>, 
         }
         try {
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
-            if(body.has("orderId")){
-                review.setOrderId(body.get("orderId").asText());
-            }
             if(body.has("itemId")){
                 review.setItemId(body.get("itemId").asText());
             }
