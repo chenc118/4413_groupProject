@@ -14,7 +14,7 @@ public class DeleteCategoryHandler implements RequestHandler<Map<String, Object>
 		Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
 		String categoryId = pathParameters.get("categoryId");
 
-		boolean deleted = new Item().delete(categoryId);
+		boolean deleted = new Category().delete(categoryId);
 		if(deleted) {
 			return ApiGatewayResponse.builder()
 					.setStatusCode(200)

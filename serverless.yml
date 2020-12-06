@@ -197,13 +197,13 @@ functions:
           path: /category/{categoryId}
           method: delete
   updateCategory:
-    handler: ca.yorku.UpdateCategoryHandler
+    handler: ca.yorku.category.UpdateCategoryHandler
     events:
       - http:
           path: /category/{categoryId}
           method: patch
   getCategory:
-    handler: ca.yorku.GetCategoryHandler
+    handler: ca.yorku.category.GetCategoryHandler
     events:
       - http:
           path: /category/{categoryId}

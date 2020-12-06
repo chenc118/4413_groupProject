@@ -29,14 +29,9 @@ public class UpdateCategoryHandler implements RequestHandler<Map<String, Object>
         }
         try{
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
-
-            if(body.has("categoryId")){
-                category.setCategoryId(body.get("categoryId").asText());
-            }
-            if(body.has("name")){
+            if(body.has("name")) {
                 category.setName(body.get("name").asText());
             }
-
             category.save();
 
             ApiGatewayResponse res = ApiGatewayResponse.builder()
