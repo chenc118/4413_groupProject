@@ -18,7 +18,8 @@ public class ApiGatewayResponse {
 
 	private static final Map<String, String> CORS_HEADERS = Map.of(
 		"Access-Control-Allow-Credentials", "true",
-		"Access-Control-Allow-Origin", "*"  // TODO: Finalize domain and remove wildcard allow
+		"Access-Control-Allow-Headers", "*",  // TODO: Finalize headers, then remove wildcard allow
+		"Access-Control-Allow-Origin", "*"  // TODO: Finalize domain, then remove wildcard allow
 	);
 
 	private final int statusCode;
