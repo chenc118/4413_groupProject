@@ -1,5 +1,6 @@
 package ca.yorku.item;
 
+import ca.yorku.BBCAuth;
 import ca.yorku.dal.Item;
 import ca.yorku.dal.Review;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -21,6 +22,14 @@ public class UpdateItemHandler implements RequestHandler<Map<String, Object>, Ap
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
+        Map<String, String> headers = (Map<String, String>) input.get("headers");
+        BBCAuth auth = new BBCAuth(headers.get("Authorization"));
+        if(!auth.verified()){
+            return ApiGatewayResponse.builder()
+                    .setStatusCode(401)
+                    .setRawBody("{\"error\":\"Not Authorized\"}")
+                    .build();
+        }
         Map<String, String> pathParameters = (Map<String, String>) input.get("pathParameters");
         String itemId = pathParameters.get("itemId");
 

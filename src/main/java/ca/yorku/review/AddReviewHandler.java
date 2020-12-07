@@ -1,5 +1,6 @@
 package ca.yorku.review;
 
+import ca.yorku.BBCAuth;
 import ca.yorku.dal.Order;
 import ca.yorku.dal.Review;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -21,6 +22,14 @@ public class AddReviewHandler implements RequestHandler<Map<String, Object>, Api
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
+        Map<String, String> headers = (Map<String, String>) input.get("headers");
+        BBCAuth auth = new BBCAuth(headers.get("Authorization"));
+        if(!auth.verified()){
+            return ApiGatewayResponse.builder()
+                    .setStatusCode(401)
+                    .setRawBody("{\"error\":\"Not Authorized\"}")
+                    .build();
+        }
         try {
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
