@@ -8,6 +8,8 @@ import com.serverless.ApiGatewayResponse;
 import com.serverless.dal.DynamoDBAdapter;
 import io.jsonwebtoken.Jwts;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -20,13 +22,20 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
         String itemId = pathParameters.get("itemId");
-        Map<String,String> headers = (Map<String,String>)input.get("headers");
-        System.out.println("headers"+headers);
-        Map<String,String[]> mHeaders = (Map<String,String[]>)input.get("multiValueHeaders");
-        System.out.println(input);
-        System.out.println("mHeaders"+mHeaders);
+        try {
+            Map<String, String> headers = (Map<String, String>) input.get("headers");
+            System.out.println("headers" + headers);
+            Map<String, String[]> mHeaders = (Map<String, String[]>) input.get("multiValueHeaders");
+            System.out.println(input);
+            System.out.println("mHeaders" + mHeaders);
 
-        System.out.println(Jwts.parser().parse(headers.get("Authorization")).getBody());
+            System.out.println(Jwts.parserBuilder().build().parse(headers.get("Authorization")).getBody());
+        }catch(Exception ex){
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            ex.printStackTrace(pw);
+            logger.severe("Error in saving product: " + ex + sw.toString());
+        }
         Item item = new Item().get(itemId);
 
         if(item != null){
