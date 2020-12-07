@@ -39,8 +39,8 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             byte[] res = Base64.decode(publicKey);
             X509EncodedKeySpec KeySpec = new X509EncodedKeySpec(res);
             RSAPublicKey pubKey = (RSAPublicKey)keyFactory.generatePublic(KeySpec);
-            Algorithm.RSA256(pubKey,null);
-            System.out.println(JWT.decode(headers.get("Authorization")).getPayload());
+            Algorithm alg = Algorithm.RSA256(pubKey,null);
+            System.out.println(JWT.require(alg).build().verify(headers.get("Authorization")).getPayload());
 
         }catch(Exception ex){
             StringWriter sw = new StringWriter();
