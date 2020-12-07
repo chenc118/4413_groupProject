@@ -1,5 +1,6 @@
 package ca.yorku.order;
 
+import ca.yorku.dal.Item;
 import ca.yorku.dal.Order;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -12,6 +13,7 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -50,16 +52,46 @@ public class UpdateOrderHandler implements RequestHandler<Map<String, Object>, A
                         break;
                 }
             }
+            HashMap<String, Order.ItemInfo> old = new HashMap<>();
+            HashMap<String,Order.ItemInfo> upd = new HashMap<>();
+            for(Order.ItemInfo i : order.getItems()){
+                old.put(i.getItemId(), i);
+            }
             if(body.has("items")&&body.get("items").isArray()){
                 ArrayList<Order.ItemInfo> items = new ArrayList<>();
                 for(JsonNode i : body.get("items")){
                     Order.ItemInfo it = new Order.ItemInfo();
                     it.setItemId(i.get("itemId").asText());
                     it.setQuantity(i.get("quantity").asInt());
+                    upd.put(it.getItemId(), it);
                     items.add(it);
                 }
                 order.setItems(items);
             }
+            for(String k:old.keySet()){
+                Item item = new Item().get(k);
+                if(upd.containsKey(k)){
+                    Order.ItemInfo o = old.get(k);
+                    Order.ItemInfo n = upd.get(k);
+                    item.setQuantityForSale(item.getQuantityForSale()+ o.getQuantity()-n.getQuantity());
+                    item.setNumSold(item.getNumSold()-o.getQuantity()+n.getQuantity());
+                    upd.remove(k);
+                }
+                else{
+                    Order.ItemInfo o = old.get(k);
+                    item.setQuantityForSale(item.getQuantityForSale()+o.getQuantity());
+                    item.setNumSold(item.getNumSold()-o.getQuantity());
+                }
+                item.save();
+            }
+            for(String k:upd.keySet()){
+                Item item = new Item().get(k);
+                Order.ItemInfo n = upd.get(k);
+                item.setQuantityForSale(item.getQuantityForSale()+-n.getQuantity());
+                item.setNumSold(item.getNumSold()-+n.getQuantity());
+                item.save();
+            }
+
             //test setters to test get monthly orders
             if(body.has("placedDate")) {
                 order.setPlacedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")

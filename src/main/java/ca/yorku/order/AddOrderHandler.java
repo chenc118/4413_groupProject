@@ -40,6 +40,16 @@ public class AddOrderHandler implements RequestHandler<Map<String, Object>, ApiG
                     it.setQuantity(i.get("quantity").asInt());
                     items.add(it);
                     Item item = new Item().get(it.getItemId());
+                    //this stuff might be screwed up by eventual consistency
+                    if(item.getQuantityForSale()<it.getQuantity()){
+                        return ApiGatewayResponse.builder()
+                            .setStatusCode(400)
+                            .setObjectBody("Quantity of item "+it.getItemId()+" exceeds available stock")
+                            .build();
+                    }
+                    else{
+                        item.setQuantityForSale(item.getQuantityForSale()-it.getQuantity());
+                    }
                     item.setNumSold(item.getNumSold()+ it.getQuantity());
                     item.save();
                 }
