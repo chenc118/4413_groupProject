@@ -6,6 +6,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.serverless.ApiGatewayResponse;
 import com.serverless.dal.DynamoDBAdapter;
+import io.jsonwebtoken.Jwts;
 
 import java.util.Collections;
 import java.util.Map;
@@ -24,6 +25,8 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
         Map<String,String[]> mHeaders = (Map<String,String[]>)input.get("multiValueHeaders");
         System.out.println(input);
         System.out.println("mHeaders"+mHeaders);
+
+        System.out.println(Jwts.parser().parse(headers.get("Authorization")).getBody());
         Item item = new Item().get(itemId);
 
         if(item != null){
