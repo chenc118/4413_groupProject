@@ -1,5 +1,6 @@
 package ca.yorku.category;
 
+import ca.yorku.BBCAuth;
 import ca.yorku.dal.Category;
 import ca.yorku.dal.Item;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -19,7 +20,14 @@ public class AddCategoryHandler implements RequestHandler<Map<String, Object>, A
 	
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-		
+		Map<String, String> headers = (Map<String, String>) input.get("headers");
+		BBCAuth auth = new BBCAuth(headers.get("Authorization"));
+		if(!auth.verified()){
+			return ApiGatewayResponse.builder()
+					.setStatusCode(401)
+					.setRawBody("{\"error\":\"Not Authorized\"}")
+					.build();
+		}
 		try{
 			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 			Category newCategory = new Category();
