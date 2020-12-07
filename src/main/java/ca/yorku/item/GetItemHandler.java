@@ -20,6 +20,8 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
         Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
         String itemId = pathParameters.get("itemId");
 
+        System.out.println(input);
+
         Item item = new Item().get(itemId);
 
         if(item != null){
