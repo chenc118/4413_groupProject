@@ -19,9 +19,11 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
         String itemId = pathParameters.get("itemId");
-
+        Map<String,String> headers = (Map<String,String>)input.get("headers");
+        System.out.println(headers);
+        Map<String,String[]> mHeaders = (Map<String,String[]>)input.get("multiValueHeaders");
         System.out.println(input);
-
+        System.out.println(mHeaders);
         Item item = new Item().get(itemId);
 
         if(item != null){
