@@ -39,10 +39,10 @@ public class UpdateReviewHandler implements RequestHandler<Map<String, Object>, 
                 review.setRating(body.get("rating").asInt());
             }
             if(body.has("title")){
-                review.setTitle(body.get("title").asText());
+                review.setTitle(escapeHTML(body.get("title").asText()));
             }
             if(body.has("content")){
-                review.setContent(body.get("content").asText());
+                review.setContent(escapeHTML(body.get("content").asText()));
             }
             review.save();
 
@@ -63,5 +63,20 @@ public class UpdateReviewHandler implements RequestHandler<Map<String, Object>, 
                     .build();
         }
 
+    }
+    //https://stackoverflow.com/questions/1265282/recommended-method-for-escaping-html-in-java
+    public static String escapeHTML(String s) {
+        StringBuilder out = new StringBuilder(Math.max(16, s.length()));
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c > 127 || c == '"' || c == '\'' || c == '<' || c == '>' || c == '&') {
+                out.append("&#");
+                out.append((int) c);
+                out.append(';');
+            } else {
+                out.append(c);
+            }
+        }
+        return out.toString();
     }
 }

@@ -33,10 +33,10 @@ public class AddReviewHandler implements RequestHandler<Map<String, Object>, Api
                 newReview.setRating(body.get("rating").asInt());
             }
             if(body.has("title")){
-                newReview.setTitle(body.get("title").asText());
+                newReview.setTitle(escapeHTML(body.get("title").asText()));
             }
             if(body.has("content")){
-                newReview.setContent(body.get("content").asText());
+                newReview.setContent(escapeHTML(body.get("content").asText()));
             }
 
             newReview.save();
@@ -56,5 +56,21 @@ public class AddReviewHandler implements RequestHandler<Map<String, Object>, Api
                     .build();
         }
 
+    }
+
+    //https://stackoverflow.com/questions/1265282/recommended-method-for-escaping-html-in-java
+    public static String escapeHTML(String s) {
+        StringBuilder out = new StringBuilder(Math.max(16, s.length()));
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c > 127 || c == '"' || c == '\'' || c == '<' || c == '>' || c == '&') {
+                out.append("&#");
+                out.append((int) c);
+                out.append(';');
+            } else {
+                out.append(c);
+            }
+        }
+        return out.toString();
     }
 }
