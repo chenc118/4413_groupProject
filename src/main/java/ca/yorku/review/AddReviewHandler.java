@@ -1,6 +1,8 @@
 package ca.yorku.review;
 
 import ca.yorku.BBCAuth;
+import ca.yorku.StandardResponses;
+import ca.yorku.dal.Item;
 import ca.yorku.dal.Order;
 import ca.yorku.dal.Review;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -15,7 +17,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class AddReviewHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse>  {
+public class AddReviewHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -23,46 +25,59 @@ public class AddReviewHandler implements RequestHandler<Map<String, Object>, Api
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String, String> headers = (Map<String, String>) input.get("headers");
-        BBCAuth auth = new BBCAuth(headers.get("Authorization"));
-        if(!auth.verified()){
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(401)
-                    .setRawBody("{\"error\":\"Not Authorized\"}")
-                    .build();
-        }
+        BBCAuth auth = new BBCAuth(headers.get("Authorization"), headers.get("identification"));
         try {
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
             Review newReview = new Review();
 
-            if(body.has("itemId")){
+            if (body.has("itemId")) {
                 newReview.setItemId(body.get("itemId").asText());
+                if (new Item().get(newReview.getItemId()) == null) {
+                    return StandardResponses.error("Invalid item Id");
+                }
+            } else {
+                return StandardResponses.error("A review must have an itemId field");
             }
-            if(body.has("rating")){
+            if (body.has("rating")) {
                 newReview.setRating(body.get("rating").asInt());
+                if (newReview.getRating() <= 0 || newReview.getRating() > 5) {
+                    return StandardResponses.error("Rating must be between 1-5 inclusive");
+                }
+            } else {
+                return StandardResponses.error("A review must contain a rating field");
             }
-            if(body.has("title")){
+            if (body.has("title")) {
                 newReview.setTitle(escapeHTML(body.get("title").asText()));
+                if (newReview.getTitle().equalsIgnoreCase("")) {
+                    return StandardResponses.error("Review title must not be empty");
+                }
+            } else {
+                return StandardResponses.error("A review must have a title field");
             }
-            if(body.has("content")){
+            if (body.has("content")) {
                 newReview.setContent(escapeHTML(body.get("content").asText()));
+                if (newReview.getTitle().equalsIgnoreCase("")) {
+                    return StandardResponses.error("Review content must not be empty");
+                }
+            } else {
+                return StandardResponses.error("A review must have a content field");
             }
-
+            if (auth.verified()) {
+                newReview.setUserId(auth.getUserId());
+            }
             newReview.save();
             return ApiGatewayResponse.builder()
                     .setStatusCode(201)
                     .setObjectBody(newReview)
                     .build();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);
-            logger.severe("Error in saving product: "+ex+sw.toString());
+            logger.severe("Error in saving product: " + ex + sw.toString());
 
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(400)
-                    .setObjectBody("Invalid Input")
-                    .build();
+            return StandardResponses.error("Invalid Input");
         }
 
     }

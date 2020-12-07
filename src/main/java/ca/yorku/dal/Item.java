@@ -138,7 +138,7 @@ public class Item {
     }
 
     @DynamoDBIgnore
-    public List<ItemId> itemByName(String name){
+    public List<ItemId> itemByName(String name) {
         Map<String, AttributeValue> av = new HashMap<>();
         av.put(":n", new AttributeValue().withS(name));
         Map<String, String> an = new HashMap<>();
@@ -152,15 +152,16 @@ public class Item {
                 .withExpressionAttributeNames(an);
 
         ScanResult result = client.scan(scanReq);
-        List<Map<String,AttributeValue>> itemList = result.getItems();
+        List<Map<String, AttributeValue>> itemList = result.getItems();
         List<ItemId> itemsId = new ArrayList<>();
-        for(Map<String,AttributeValue> i:itemList){
+        for (Map<String, AttributeValue> i : itemList) {
             ItemId id = new ItemId();
             id.setItemId(i.get("itemId").getS());
             itemsId.add(id);
         }
         return itemsId;
     }
+
     public void save() {
         mapper.save(this);
     }
@@ -170,7 +171,7 @@ public class Item {
         if (this == o) return true;
         if (o == null) return false;
         if (getClass() != o.getClass()) return false;
-        Item i = (Item)o;
+        Item i = (Item) o;
         return getItemId().equals(i.getItemId());
     }
 

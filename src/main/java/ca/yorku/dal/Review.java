@@ -31,6 +31,10 @@ public class Review {
     @DynamoDBAttribute
     @Getter
     @Setter
+    private String userId;
+    @DynamoDBAttribute
+    @Getter
+    @Setter
     private int rating;
     @DynamoDBAttribute
     @Getter

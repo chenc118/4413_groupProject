@@ -18,18 +18,17 @@ public class GetUserHandler implements RequestHandler<Map<String, Object>, ApiGa
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-        Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
+        Map<String, String> pathParameters = (Map<String, String>) input.get("pathParameters");
         String userId = pathParameters.get("uuid");
 
         User user = new User().get(userId);
 
-        if(user != null){
+        if (user != null) {
             return ApiGatewayResponse.builder()
                     .setStatusCode(200)
                     .setObjectBody(user)
                     .build();
-        }
-        else{
+        } else {
 
             return ApiGatewayResponse.builder()
                     .setStatusCode(404)

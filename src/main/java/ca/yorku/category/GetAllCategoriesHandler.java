@@ -13,9 +13,9 @@ public class GetAllCategoriesHandler implements RequestHandler<Map<String, Objec
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(200)
-                    .setObjectBody(new Category().listCategories())
-                    .build();
+        return ApiGatewayResponse.builder()
+                .setStatusCode(200)
+                .setObjectBody(new Category().listCategories())
+                .build();
     }
 }

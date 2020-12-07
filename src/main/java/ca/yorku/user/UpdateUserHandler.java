@@ -31,7 +31,7 @@ public class UpdateUserHandler implements RequestHandler<Map<String, Object>, Ap
                     .setRawBody("Item not found")
                     .build();
         }
-        try{
+        try {
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
             if (body.has("userId")) {
@@ -60,7 +60,7 @@ public class UpdateUserHandler implements RequestHandler<Map<String, Object>, Ap
                     .setObjectBody(user)
                     .build();
             return res;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);

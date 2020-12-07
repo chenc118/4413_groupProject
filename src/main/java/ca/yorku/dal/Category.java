@@ -61,8 +61,9 @@ public class Category {
         }
         return category;
     }
+
     @DynamoDBIgnore
-    public List<Category> listCategories(){
+    public List<Category> listCategories() {
         ScanRequest scanReq = new ScanRequest()
                 .withTableName("categories_table3")
                 .withAttributesToGet("categoryId", "name");
@@ -70,7 +71,7 @@ public class Category {
         ScanResult result = client.scan(scanReq);
         List<Map<String, AttributeValue>> itemList = result.getItems();
         List<Category> categoryList = new ArrayList<>();
-        for(Map<String, AttributeValue> item: itemList){
+        for (Map<String, AttributeValue> item : itemList) {
             Category cat = new Category();
             cat.setCategoryId(item.get("categoryId").getS());
             cat.setName(item.get("name").getS());

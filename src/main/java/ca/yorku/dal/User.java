@@ -99,7 +99,8 @@ public class User {
         }
         return false;
     }
-    public enum UserGroup{
+
+    public enum UserGroup {
         Visitor,
         Customer,
         Partner,

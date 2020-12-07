@@ -3,6 +3,8 @@ package ca.yorku.dal;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.serverless.dal.DynamoDBAdapter;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import lombok.Setter;
 
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @DynamoDBTable(tableName = "orders_table6")
 public class Order {
@@ -23,6 +26,10 @@ public class Order {
     @Getter
     @Setter
     private String orderId;
+    @DynamoDBAttribute
+    @Getter
+    @Setter
+    private String userId;
     @DynamoDBAttribute
     @Getter
     @Setter
@@ -48,6 +55,14 @@ public class Order {
     @Getter
     @Setter
     private List<ItemInfo> items;
+    @DynamoDBAttribute
+    @Getter
+    @Setter
+    private Address billingAddress;
+    @DynamoDBAttribute
+    @Getter
+    @Setter
+    private Address shippingAddress;
 
     @JsonIgnore
     @DynamoDBAttribute
@@ -105,6 +120,35 @@ public class Order {
         return orderList;
     }
 
+    public List<UserInfo> userReport(){
+        ScanRequest scanReq = new ScanRequest()
+                .withTableName("order_table6");
+
+        ScanResult result = client.scan(scanReq);
+        List<Map<String, AttributeValue>> orderList = result.getItems();
+        Map<String,UserInfo> userInfo = new HashMap<>();
+        for (Map<String, AttributeValue> i : orderList) {
+            Order o = new Order().get(i.get("orderId").getS());
+            String uId = o.getUserId();
+            double amount = 0;
+            for(ItemInfo itemI: o.getItems()){
+                Item item = new Item().get(itemI.getItemId());
+                amount+= item.getPrice()*itemI.getQuantity();
+            }
+            if(userInfo.containsKey(uId)){
+                UserInfo ui = userInfo.get(uId);
+                ui.setAmount(ui.getAmount()+amount);
+            }
+            else{
+                UserInfo ui = new UserInfo();
+                ui.setPostalCode(o.getBillingAddress().getPostalCode());
+                ui.setAmount(amount);
+                userInfo.put(uId,ui);
+            }
+        }
+        return userInfo.values().stream().collect(Collectors.toList());
+    }
+
     @DynamoDBIgnore
     public List<ItemInfo> monthlyReport(String yearMonth) {
         Map<String, AttributeValue> av = new HashMap<>();
@@ -116,12 +160,12 @@ public class Order {
                 .withKeyConditionExpression("begins_with (placedDate,:dateMonth) AND partitionKeyDummy = :pkd")
                 .withExpressionAttributeValues(av);
 
-        HashMap<String,ItemInfo> items = new HashMap<>();
+        HashMap<String, ItemInfo> items = new HashMap<>();
         PaginatedQueryList<Order> result = this.mapper.query(Order.class, queryExp);
         if (result.size() > 0) {
-            for(Order o:result){
-                for(ItemInfo i:o.getItems()){
-                    if(i!=null) {
+            for (Order o : result) {
+                for (ItemInfo i : o.getItems()) {
+                    if (i != null) {
                         if (items.containsKey(i.itemId)) {
                             ItemInfo cur = items.get(i.itemId);
                             cur.setQuantity(i.quantity + cur.quantity);
@@ -168,7 +212,7 @@ public class Order {
     }
 
     @DynamoDBDocument
-    public static class ItemInfo{
+    public static class ItemInfo {
         @DynamoDBAttribute
         @Getter
         @Setter
@@ -177,5 +221,14 @@ public class Order {
         @Getter
         @Setter
         private int quantity;
+    }
+
+    public static class UserInfo{
+        @Setter
+        @Getter
+        private String postalCode;
+        @Setter
+        @Getter
+        private double amount;
     }
 }

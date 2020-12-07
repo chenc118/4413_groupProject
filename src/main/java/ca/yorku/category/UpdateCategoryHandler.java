@@ -1,6 +1,7 @@
 package ca.yorku.category;
 
 import ca.yorku.BBCAuth;
+import ca.yorku.StandardResponses;
 import ca.yorku.dal.Category;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -19,27 +20,27 @@ public class UpdateCategoryHandler implements RequestHandler<Map<String, Object>
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String, String> headers = (Map<String, String>) input.get("headers");
-        BBCAuth auth = new BBCAuth(headers.get("Authorization"));
-        if(!auth.verified()){
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(401)
-                    .setRawBody("{\"error\":\"Not Authorized\"}")
-                    .build();
+        BBCAuth auth = new BBCAuth(headers.get("Authorization"), headers.get("identification"));
+        if (!auth.verified()) {
+            return auth.deny();
         }
-        Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
+        if (!auth.isAdmin()) {
+            return auth.forbidden();
+        }
+        Map<String, String> pathParameters = (Map<String, String>) input.get("pathParameters");
         String categoryId = pathParameters.get("categoryId");
 
         Category category = new Category().get(categoryId);
-        if(category==null){
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(404)
-                    .setRawBody("Category not found")
-                    .build();
+        if (category == null) {
+            return StandardResponses.error("Category not found", 404);
         }
-        try{
+        try {
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
-            if(body.has("name")) {
+            if (body.has("name")) {
                 category.setName(body.get("name").asText());
+                if (category.getName().equalsIgnoreCase("")) {
+                    return StandardResponses.error("Name must not be empty");
+                }
             }
             category.save();
 
@@ -48,16 +49,12 @@ public class UpdateCategoryHandler implements RequestHandler<Map<String, Object>
                     .setObjectBody(category)
                     .build();
             return res;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);
-            logger.severe("Error in saving category: "+ex+sw.toString());
-
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(400)
-                    .setObjectBody("Invalid Data")
-                    .build();
+            logger.severe("Error in saving category: " + ex + sw.toString());
+            return StandardResponses.error("Invalid Input");
         }
     }
 }

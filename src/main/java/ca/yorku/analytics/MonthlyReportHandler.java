@@ -15,12 +15,12 @@ public class MonthlyReportHandler implements RequestHandler<Map<String, Object>,
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String, String> headers = (Map<String, String>) input.get("headers");
-        BBCAuth auth = new BBCAuth(headers.get("Authorization"));
-        if(!auth.verified()){
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(401)
-                    .setRawBody("{\"error\":\"Not Authorized\"}")
-                    .build();
+        BBCAuth auth = new BBCAuth(headers.get("authorization"), headers.get("identification"));
+        if (!auth.verified()) {
+            return auth.deny();
+        }
+        if (!auth.isAdmin()) {
+            return auth.forbidden();
         }
         Map<String, String> pathParameters = (Map<String, String>) input.get("pathParameters");
         String yearMonth = pathParameters.get("year-month");

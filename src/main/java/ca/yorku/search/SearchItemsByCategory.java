@@ -14,11 +14,11 @@ public class SearchItemsByCategory implements RequestHandler<Map<String, Object>
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         // get the 'pathParameters' from input
-        Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
+        Map<String, String> pathParameters = (Map<String, String>) input.get("pathParameters");
         String[] categoryId = pathParameters.get("categoryId").split(",");
 
         Set<Item> items = new HashSet<Item>();
-        for(String cat:categoryId) {
+        for (String cat : categoryId) {
             items.addAll(new Item().getByCategory(cat));
         }
 

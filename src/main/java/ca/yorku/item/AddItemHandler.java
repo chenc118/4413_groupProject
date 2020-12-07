@@ -1,6 +1,8 @@
 package ca.yorku.item;
 
 import ca.yorku.BBCAuth;
+import ca.yorku.StandardResponses;
+import ca.yorku.dal.Category;
 import ca.yorku.dal.Item;
 import ca.yorku.dal.Review;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -23,12 +25,12 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String, String> headers = (Map<String, String>) input.get("headers");
-        BBCAuth auth = new BBCAuth(headers.get("Authorization"));
-        if(!auth.verified()){
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(401)
-                    .setRawBody("{\"error\":\"Not Authorized\"}")
-                    .build();
+        BBCAuth auth = new BBCAuth(headers.get("Authorization"), headers.get("identification"));
+        if (!auth.verified()) {
+            return auth.deny();
+        }
+        if (!auth.isPartner()) {
+            return auth.forbidden();
         }
 
         try {
@@ -36,20 +38,42 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
             Item newItem = new Item();
-            newItem.setCategoryId(body.get("categoryId").asText());
-            newItem.setName(body.get("name").asText());
+            if (body.has("categoryId")) {
+                newItem.setCategoryId(body.get("categoryId").asText());
+                if (new Category().get(newItem.getCategoryId()) == null) {
+                    return StandardResponses.error("Category Id must be a valid ID");
+                }
+            } else {
+                return StandardResponses.error("Item must have a categoryId field");
+            }
+            if (body.has("name")) {
+                newItem.setName(body.get("name").asText());
+            } else {
+                return StandardResponses.error("Item must have a name field");
+            }
             if (body.has("price")) {
                 newItem.setPrice(body.get("price").asDouble());
+                if (newItem.getPrice() < 0) {
+                    return StandardResponses.error("Price must be >=0");
+                }
+            } else {
+                return StandardResponses.error("Item must have a price field");
             }
             if (body.has("quantityForSale")) {
                 newItem.setQuantityForSale(body.get("quantityForSale").asLong());
+                if (newItem.getQuantityForSale() < 0) {
+                    return StandardResponses.error("Quantity for sale must be >= 0");
+                }
+            } else {
+                return StandardResponses.error("Item must have a quantityForSale field");
             }
             if (body.has("numSold")) {
                 newItem.setNumSold(body.get("numSold").asInt());
+                if (newItem.getNumSold() < 0) {
+                    return StandardResponses.error("Num sold must be >= 0");
+                }
             }
-            if (body.has("soldBy")) {
-                newItem.setSoldBy(body.get("soldBy").asText());
-            }
+            newItem.setSoldBy(auth.getUserId());
             if (body.has("reviews") && body.get("reviews").isArray()) {
                 List<Review.ReviewId> reviewList = new ArrayList<>();
                 for (JsonNode reviewId : body.get("reviews")) {
@@ -59,10 +83,10 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
                 }
                 newItem.setReviews(reviewList);
             }
-            if(body.has("image")){
+            if (body.has("image")) {
                 newItem.setImage(body.get("image").asText());
             }
-            if(body.has("description")){
+            if (body.has("description")) {
                 newItem.setDescription(body.get("description").asText());
             }
             newItem.save();
@@ -75,11 +99,7 @@ public class AddItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);
             logger.severe("Error in saving product: " + ex + sw.toString());
-
-            return ApiGatewayResponse.builder()
-                    .setStatusCode(400)
-                    .setObjectBody("Invalid Input")
-                    .build();
+            return StandardResponses.error("Invalid Input");
         }
 
     }

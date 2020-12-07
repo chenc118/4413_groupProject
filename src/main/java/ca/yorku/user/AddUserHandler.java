@@ -18,7 +18,7 @@ public class AddUserHandler implements RequestHandler<Map<String, Object>, ApiGa
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-        try{
+        try {
             // get the 'body' from input
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
@@ -33,7 +33,7 @@ public class AddUserHandler implements RequestHandler<Map<String, Object>, ApiGa
             }
             //Likely need another endpoint to update group to higher privledges
             newUser.setGroup(User.UserGroup.Customer);
-            if(body.has("identity")){
+            if (body.has("identity")) {
                 newUser.setCognitoIdentity(body.get("identity").asText());
             }
 
@@ -42,7 +42,7 @@ public class AddUserHandler implements RequestHandler<Map<String, Object>, ApiGa
                     .setStatusCode(201)
                     .setObjectBody(newUser)
                     .build();
-        } catch(Exception ex){
+        } catch (Exception ex) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);

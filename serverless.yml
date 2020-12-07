@@ -66,7 +66,17 @@ functions:
       - http:
           path: /item/{itemId}
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   updateItem:
     handler: ca.yorku.item.UpdateItemHandler
@@ -74,7 +84,17 @@ functions:
       - http:
           path: /item/{itemId}
           method: patch
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   deleteItem:
     handler: ca.yorku.item.DeleteItemHandler
@@ -82,14 +102,34 @@ functions:
       - http:
           path: /item/{itemId}
           method: delete
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
   addItem:
     handler: ca.yorku.item.AddItemHandler
     events:
       - http:
           path: /item/new
           method: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
 
   getOrder:
@@ -98,7 +138,17 @@ functions:
       - http:
           path: /order/{orderId}
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   updateOrder:
     handler: ca.yorku.order.UpdateOrderHandler
@@ -106,21 +156,51 @@ functions:
       - http:
           path: /order/{orderId}
           method: patch
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
   deleteOrder:
     handler: ca.yorku.order.DeleteOrderHandler
     events:
       - http:
           path: /order/{orderId}
           method: delete
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
   addOrder:
     handler: ca.yorku.order.AddOrderHandler
     events:
       - http:
           path: /order/new
           method: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   getReview:
     handler: ca.yorku.review.GetReviewHandler
@@ -128,7 +208,17 @@ functions:
       - http:
           path: /review/{reviewId}
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   updateReview:
     handler: ca.yorku.review.UpdateReviewHandler
@@ -136,21 +226,51 @@ functions:
       - http:
           path: /review/{reviewId}
           method: patch
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
   deleteReview:
     handler: ca.yorku.review.DeleteReviewHandler
     events:
       - http:
           path: /review/{reviewId}
           method: delete
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
   addReview:
     handler: ca.yorku.review.AddReviewHandler
     events:
       - http:
           path: /review/new
           method: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
 #  getUser:
 #    handler: ca.yorku.user.GetUserHandler
@@ -172,7 +292,17 @@ functions:
       - http:
           path: /user/{userId}
           method: delete
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   addUser:
     handler: ca.yorku.user.AddUserHandler
@@ -180,7 +310,17 @@ functions:
       - http:
           path: /user/new
           method: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
 #  loginUser:
 #    handler: ca.yorku.user.LoginUserHandler
@@ -203,28 +343,68 @@ functions:
       - http:
           path: /category/new
           method: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
   deleteCategory:
     handler: ca.yorku.category.DeleteCategoryHandler
     events:
       - http:
           path: /category/{categoryId}
           method: delete
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
   updateCategory:
     handler: ca.yorku.category.UpdateCategoryHandler
     events:
       - http:
           path: /category/{categoryId}
           method: patch
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
   getCategory:
     handler: ca.yorku.category.GetCategoryHandler
     events:
       - http:
           path: /category/{categoryId}
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   getAllCategories:
     handler: ca.yorku.category.GetAllCategoriesHandler
@@ -232,7 +412,17 @@ functions:
       - http:
           path: /categories
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   searchItemsByCategory:
     handler: ca.yorku.search.SearchItemsByCategory
@@ -240,7 +430,17 @@ functions:
       - http:
           path: /category/{categoryId}/items
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   searchOrdersByItem:
     handler: ca.yorku.search.SearchOrdersByItem
@@ -248,7 +448,17 @@ functions:
       - http:
           path: /item/{itemId}/orders
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   searchItemByName:
     handler: ca.yorku.search.SearchItemsByName
@@ -256,7 +466,17 @@ functions:
       - http:
           path: /item/name/{itemName}
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   getMonthlyReport:
     handler: ca.yorku.analytics.MonthlyReportHandler
@@ -264,7 +484,17 @@ functions:
       - http:
           path: /analytics/report/{year-month}
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
   getTop10Report:
     handler: ca.yorku.analytics.GetTop10Report
@@ -272,7 +502,34 @@ functions:
       - http:
           path: /analytics/report/top10
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
+  getUserAnalytics:
+    handler: ca.yorku.analytics.GetUserAnalytics
+    events:
+      - http:
+          path: /analytics/report/users
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Authorization
+              - Content-Type
+              - Identification
+              - X-Amz-Date
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Api-Key
+            allowCredentials: false
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

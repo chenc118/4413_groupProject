@@ -12,7 +12,7 @@ public class SearchItemsByName implements RequestHandler<Map<String, Object>, Ap
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         // get the 'pathParameters' from input
-        Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
+        Map<String, String> pathParameters = (Map<String, String>) input.get("pathParameters");
         String itemName = pathParameters.get("itemName");
 
         List<Item.ItemId> items = new Item().itemByName(itemName);
