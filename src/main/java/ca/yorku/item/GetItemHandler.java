@@ -4,9 +4,9 @@ import ca.yorku.dal.Item;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.auth0.jwt.JWT;
 import com.serverless.ApiGatewayResponse;
 import com.serverless.dal.DynamoDBAdapter;
-import io.jsonwebtoken.Jwts;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -29,7 +29,7 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             System.out.println(input);
             System.out.println("mHeaders" + mHeaders);
 
-            System.out.println(Jwts.parserBuilder().build().parse(headers.get("Authorization")).getBody());
+            System.out.println(JWT.decode(headers.get("Authorization")).getPayload());
         }catch(Exception ex){
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
