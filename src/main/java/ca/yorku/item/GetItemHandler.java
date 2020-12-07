@@ -4,12 +4,18 @@ import ca.yorku.dal.Item;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.util.Base64;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.serverless.ApiGatewayResponse;
 import com.serverless.dal.DynamoDBAdapter;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.security.KeyFactory;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Collections;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -28,8 +34,14 @@ public class GetItemHandler implements RequestHandler<Map<String, Object>, ApiGa
             Map<String, String[]> mHeaders = (Map<String, String[]>) input.get("multiValueHeaders");
             System.out.println(input);
             System.out.println("mHeaders" + mHeaders);
-
+            String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAieFN2HmyeG1uD3vroMvK";
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            byte[] res = Base64.decode(publicKey);
+            X509EncodedKeySpec KeySpec = new X509EncodedKeySpec(res);
+            RSAPublicKey pubKey = (RSAPublicKey)keyFactory.generatePublic(KeySpec);
+            Algorithm.RSA256(pubKey,null);
             System.out.println(JWT.decode(headers.get("Authorization")).getPayload());
+
         }catch(Exception ex){
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
