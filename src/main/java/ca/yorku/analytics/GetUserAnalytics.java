@@ -12,7 +12,7 @@ public class GetUserAnalytics implements RequestHandler<Map<String, Object>, Api
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         Map<String, String> headers = (Map<String, String>) input.get("headers");
-        BBCAuth auth = new BBCAuth(headers.get("authorization"), headers.get("identification"));
+        BBCAuth auth = new BBCAuth(headers.get("Authorization"), headers.get("identification"));
         if (!auth.verified()) {
             return auth.deny();
         }
